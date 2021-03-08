@@ -43,11 +43,13 @@
 * [zseano](https://www.youtube.com/channel/UCCUFgj-52_ryvpQUacylRpg)
 
 
-#### Other Resources 
+#### Other Resources `
 
+````
 Hackerone Reports
 Bugcrowd Resources
 Portswigger Academy
 Intigriti Blogs
 PentesterLab
 Medium Blogs
+````
