@@ -43,7 +43,7 @@
 * [zseano](https://www.youtube.com/channel/UCCUFgj-52_ryvpQUacylRpg)
 
 
-#### Other Resources `
+#### Other Resources 
 
 ````
 Hackerone Reports
