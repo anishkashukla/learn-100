@@ -9,9 +9,10 @@
 #### There are a lot of resources available online that you can refer to in order to start with it. There are different courses that you can do as well.
 
 ### Resources 
-````
-Books 
 
+#### Books 
+
+````
 * Web Application Hacker's Handbook
 * Web Hacking 101 
 * Mastering Modern Web Application 
@@ -42,7 +43,11 @@ Books
 * [zseano](https://www.youtube.com/channel/UCCUFgj-52_ryvpQUacylRpg)
 
 
-Other Resources 
+#### Other Resources 
 
 Hackerone Reports
 Bugcrowd Resources
+Portswigger Academy
+Intigriti Blogs
+PentesterLab
+Medium Blogs
