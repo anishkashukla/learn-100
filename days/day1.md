@@ -16,10 +16,10 @@ Books
 * Web Hacking 101 
 * Mastering Modern Web Application 
 * Hacker's Playbook 
+````
+#### Youtube Channel 
 
-Youtube Channel 
-
-* [Hackerone] (https://www.youtube.com/channel/UCsgzmECky2Q9lQMWzDwMhYw)
+* [Hackerone](https://www.youtube.com/channel/UCsgzmECky2Q9lQMWzDwMhYw)
 * [Bugcrowd](https://www.youtube.com/channel/UCo1NHk_bgbAbDBc4JinrXww)
 * [HackerSploit](https://www.youtube.com/channel/UC0ZTPkdxlAKf-V33tqXwi3Q)
 * [Live Overflow](https://www.youtube.com/channel/UClcE-kVhqyiHCcjYwcpfj9w)
@@ -40,6 +40,7 @@ Youtube Channel
 * [codingo](https://www.youtube.com/channel/UCUfO02gdMDXgOJWdv_jiLMg)
 * [RogueSMG](https://www.youtube.com/channel/UC855OCrjl7C3elK8VfEZoHw)
 * [zseano](https://www.youtube.com/channel/UCCUFgj-52_ryvpQUacylRpg)
+
 
 Other Resources 
 
