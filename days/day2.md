@@ -1,5 +1,4 @@
-### Do you ever thought that instead of using SSL and other external services in order
-### to secure the website but still it is vulnerable to different attacks ?
+### Do you ever thought that instead of using SSL and other external services in order to secure the website but still it is vulnerable to different attacks ?
 
 ````
 Well, the prime reason for this is because the user is able to give some arbitrary input 
