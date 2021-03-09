@@ -8,6 +8,14 @@
 
 #### There are a lot of resources available online that you can refer to in order to start with it. There are different courses that you can do as well.
 
+### How to avoid Duplicates and submit a valid bug ?
+````
+* Gather as much information as you can about the target
+* Try hunting on the subdomains rather than the main target or domain
+* Read the Program Details properly and understand which domains are in scope and which are not
+* Also properly read about what kinds of bugs you should focus on which will help you get the points or bounty
+````
+
 ### Resources 
 
 #### Books 
@@ -52,4 +60,12 @@ Portswigger Academy
 Intigriti Blogs
 PentesterLab
 Medium Blogs
+````
+#### Tips 
+
+````
+* Do not be afraid to make mistakes. Make mistakes, learn from them and be better.
+* In the starting you may find it difficult to find a valid bug but keep hunting and be consistent. 
+* Consitency is the key. 
+* Keep learning, Keep Hunting :smile: :v:
 ````
