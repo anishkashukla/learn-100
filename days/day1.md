@@ -67,5 +67,5 @@ Medium Blogs
 * Do not be afraid to make mistakes. Make mistakes, learn from them and be better.
 * In the starting you may find it difficult to find a valid bug but keep hunting and be consistent. 
 * Consitency is the key. 
-* Keep learning, Keep Hunting :smile: :v:
+* Keep learning, Keep Hunting 
 ````
