@@ -51,7 +51,7 @@
 * [zseano](https://www.youtube.com/channel/UCCUFgj-52_ryvpQUacylRpg)
 
 
-#### Other Resources 
+### Other Resources 
 
 ````
 Hackerone Reports
@@ -61,7 +61,7 @@ Intigriti Blogs
 PentesterLab
 Medium Blogs
 ````
-#### Tips 
+### Tips 
 
 ````
 * Do not be afraid to make mistakes. Make mistakes, learn from them and be better.
