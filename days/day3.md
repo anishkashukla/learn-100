@@ -67,4 +67,4 @@ https://blog.usejournal.com/
 web-application-security-bug-bounty-methodology-reconnaissance-vulnerabilities-reporting-635073cddcf2
 ````
 
-### Will keep updating it so keep checking it regularly :smile:
+### Will keep updating it so keep checking it regularly :smile: :v:
