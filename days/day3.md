@@ -65,6 +65,10 @@ https://infosecwriteups.com/guide-to-basic-recon-bug-bounties-recon-728c5242a115
 https://www.offensity.com/de/blog/just-another-recon-guide-pentesters-and-bug-bounty-hunters/
 https://blog.usejournal.com/
 web-application-security-bug-bounty-methodology-reconnaissance-vulnerabilities-reporting-635073cddcf2
+https://youtu.be/uKWu6yhnhbQ
+https://youtu.be/ZnugWiOULmw
+https://youtu.be/amihlWTtkMA
+https://youtu.be/p4JgIu1mceI
 ````
 
 ### Will keep updating it so keep checking it regularly :smile: :v:
