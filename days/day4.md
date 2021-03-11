@@ -48,10 +48,12 @@ Put - Upload specified resource to the server using the content contained in the
 ````
 ### General HTTP Headers 
 ````
-Connection - Tells the other end of the communication whether it should close the TCP Connection after the HTTP transmission has completed
+Connection - Tells the other end of the communication whether it should close the TCP Connection after the HTTP transmission 
+has completed
 Content-Encoding - What kind of encoding is being used
 Content-Length - Specifies length of the message body in bytes
 Content-Type - Type of content contained in the message body
 Transfer Encoding - Encoding that was performed on the message body to facilitate its transfer over HTTP
 ````
+
 
