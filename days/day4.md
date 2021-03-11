@@ -55,5 +55,12 @@ Content-Length - Specifies length of the message body in bytes
 Content-Type - Type of content contained in the message body
 Transfer Encoding - Encoding that was performed on the message body to facilitate its transfer over HTTP
 ````
-
+### Request Headers 
+````
+Accept - Content client is willing to accept
+Accept-Encoding - Content encoding client is willing to accept
+Authoriztion - Submits credentials to the server for one of the built-in HTTP authentication types
+Cookie - Submits cookies to the server previously issued
+Host - Specifies the hostname that appeared in the full URL being requested
+````
 
