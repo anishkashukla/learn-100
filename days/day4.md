@@ -16,7 +16,7 @@ All request and response consists of one or more headers, each on a seperate lin
 2. The requested URL
 3. The HTTP version being used
 ````
-#### Headers 
+### Headers 
 ````
 Referrer Header - URL from which the request is originated
 User-Agent - Used to provide information about the browser
@@ -30,3 +30,28 @@ The first line of every HTTP response consists of three items seperated by space
 2. A numeric status code (200,300,404,503)
 3. A textual "reason phrase" describing the status of the response (OK, Moved Temporarily etc)
 ````
+### Other Headers
+````
+Server - Contains a banner indicating the web software being used
+Set-Cookie - Issues the browser a further cookie, this is submitted back in the cookie subsequent requests to this server
+Prgma - Instructs the browser not to store the response in the cache
+Expires - Response content expired in the past
+Content-Type - What is contained in the body of the message
+Content-Length - Length of the message body in bytes
+````
+### HTTP Methods 
+````
+Head - Contains the header part of the request
+Trace - Helps in diagnostics
+Options - What all methods are allowed 
+Put - Upload specified resource to the server using the content contained in the request
+````
+### General HTTP Headers 
+````
+Connection - Tells the other end of the communication whether it should close the TCP Connection after the HTTP transmission has completed
+Content-Encoding - What kind of encoding is being used
+Content-Length - Specifies length of the message body in bytes
+Content-Type - Type of content contained in the message body
+Transfer Encoding - Encoding that was performed on the message body to facilitate its transfer over HTTP
+````
+
