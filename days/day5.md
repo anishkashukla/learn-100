@@ -14,10 +14,24 @@ port: port number of the service
 org: the organization that owns this IP space
 location.country_code: the country where the device is located
 ````
+### Command Line Interface
+````
+You can also use Shodan in command line 
+
+Installation - 
+
+In a virtual python environment
+easy_install shodan
+Once you have installed CLI tool, setup your API token
+shodan init <Your API Key>
+````
 ### Resources 
 [ShodanQueries-github-repo]https://github.com/jakejarvis/awesome-shodan-queries
 
-### What is Censys ?
+### Other information
 ````
-Censys helps you track your publicly exposed assets as technology moves to the cloud, workers become more distributed, and you accumulate security debt through mergers & acquisitions and third-party services.
+Download data
+Generate reports
+Shodan Maps
+Shodan Images
 ````
