@@ -21,9 +21,17 @@ You can also use Shodan in command line
 Installation - 
 
 In a virtual python environment
-easy_install shodan
+easy_install shodan or pip3 install shodan
 Once you have installed CLI tool, setup your API token
 shodan init <Your API Key>
+
+Help -
+
+shodan -h
+
+Search -
+
+shodan search -h for help
 ````
 ### Resources 
 [ShodanQueries-github-repo]https://github.com/jakejarvis/awesome-shodan-queries
