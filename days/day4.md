@@ -62,5 +62,30 @@ Accept-Encoding - Content encoding client is willing to accept
 Authoriztion - Submits credentials to the server for one of the built-in HTTP authentication types
 Cookie - Submits cookies to the server previously issued
 Host - Specifies the hostname that appeared in the full URL being requested
+If-Modified-Since - Specifies when the browser last received the requested resource.
+If-None-Match - Specifies an entity tag, which is an identifier denoting the contents of the message body
+Origin - Used in cross-domain Ajax requests to indicate the domain from which the request originated
+Referer - Specifies the URL from which the current request originated
+User-Agent - Provides information about the browser or other client software that generated the request 
 ````
-
+### Response Headers
+````
+Access-Control-Allow-Origin - Indicates whether the resource can be retrieved via cross-domain Ajax requests
+Cache-Control - Passes caching directives to the browser
+Etag - Specifies an entity tag
+Expires - Tells the browser for how long the contents of the message body are valid
+Location - Used in redirection responses (those that have a status code starting with 3) to specify the target of the redirect
+Pragma - Passes caching directives to the browser
+Server - Provides information about the web server software being used
+Set-Cookie - Issues cookies to the browser that it will submit back to the server in subsequent requests
+WWW-Authenticate - Used in responses that have a 401 status code to provide details on the type(s) of authentication that the server supports.
+X-Frame-Options - Indicates whether and how the current response may be loaded within a browser frame
+````
+### Cookies 
+````
+expires - sets a date until which the cookie is valid
+domain - specifies the domain for which the cookie is valid
+path - specifies the URL path for which cookie is valid
+secure - If this attribute is set, the cookie will be submitted only in HTTPS requests
+HttpOnly - If this attribute is set, the cookie cannot be directly accessed via client-side JavaScript 
+````
