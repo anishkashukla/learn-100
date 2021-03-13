@@ -17,3 +17,4 @@ Note taking is very important for beginners, especially when you are still not c
 * [BugHunterMethodology](https://www.bugcrowd.com/blog/the-importance-of-notes-session-tracking-bug-bounty-hunter-methodology/)
 * [TheneedforNoteMaking](https://sankethsharath.medium.com/the-need-for-note-making-and-an-organized-methodology-in-bug-bounty-hunting-f4d23c7db4bf)
 
+### Will keep updating the resouces so keep checking that in future as well :smile: :v:
