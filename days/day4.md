@@ -78,7 +78,8 @@ Location - Used in redirection responses (those that have a status code starting
 Pragma - Passes caching directives to the browser
 Server - Provides information about the web server software being used
 Set-Cookie - Issues cookies to the browser that it will submit back to the server in subsequent requests
-WWW-Authenticate - Used in responses that have a 401 status code to provide details on the type(s) of authentication that the server supports.
+WWW-Authenticate - Used in responses that have a 401 status code to provide details on the type(s) of authentication that the 
+server supports.
 X-Frame-Options - Indicates whether and how the current response may be loaded within a browser frame
 ````
 ### Cookies 
