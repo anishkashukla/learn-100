@@ -1,6 +1,7 @@
 ### Note Taking
 ````
-Note taking is very important for beginners, especially when you are still not creative, when you have not fully begun to think like a hacker. Making notes and creating a methodology doesn’t guarantee immediate success, but it greatly amplifies your speed of becoming a better researcher/hacker. 
+Note taking is very important for beginners, especially when you are still not creative, when you have not fully begun to think 
+like a hacker. Making notes and creating a methodology doesn’t guarantee immediate success, but it greatly amplifies your speed of becoming a better researcher/hacker. 
 ````
 ### Why is it important ?
 ````
