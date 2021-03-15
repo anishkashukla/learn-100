@@ -10,3 +10,8 @@ It will help you in increasing the scope by finding some files or directories th
 You can find some hidden endpoints
 You can find default configured servers, some api keys, tokens etc.
 ````
+### Payload lists 
+
+* [SecLists](https://github.com/danielmiessler/SecLists)
+* [Dirsearch](https://github.com/maurosoria/dirsearch)
+* [PayloadAllThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
