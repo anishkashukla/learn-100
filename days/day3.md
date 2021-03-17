@@ -30,6 +30,12 @@ Read all terms of the program and understand which domains are in scope and whic
 Recon and gather as much information as you can to effectively map the application
 Make notes of everything properly 
 ````
+### Making notes 
+````
+It is extremely important to note information about the target so that you do not miss out on anything. 
+
+There should be a proper methodology for approaching the target.
+````
 
 ### Tools 
 
