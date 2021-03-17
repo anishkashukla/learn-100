@@ -22,3 +22,7 @@ Most vulnerabilities in authentication mechanisms arise in one of two ways:
 * Logic flaws or poor coding in the implementation allow the authentication mechanisms to be bypassed entirely by an attacker. 
 This is sometimes referred to as "broken authentication".
 ````
+### Impact of Vulnerable Authentication 
+````
+The impact of authentication vulnerabilities can be very severe. Once an attacker has either bypassed authentication or has brute-forced their way into another user's account, they have access to all the data and functionality that the compromised account has. If they are able to compromise a high-privileged account, such as a system administrator, they could take full control over the entire application and potentially gain access to internal infrastructure
+````
