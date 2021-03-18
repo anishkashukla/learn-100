@@ -50,5 +50,5 @@ dedicated tools, potentially enables an attacker to make vast numbers of login a
 Brute-forcing is not always just a case of making completely random guesses at usernames and passwords. By also using basic 
 logic or publicly available knowledge, attackers can fine-tune brute-force attacks to make much more educated guesses. This considerably 
 increases the efficiency of such attacks. Websites that rely on password-based login as their sole method of authenticating users can be highly 
-    vulnerable if they do not implement sufficient brute-force protection.
+vulnerable if they do not implement sufficient brute-force protection.
 ````
