@@ -29,3 +29,18 @@ brute-forced their way into another user's account, they have access to all the 
 account has. If they are able to compromise a high-privileged account, such as a system administrator, they could take full 
 control over the entire application and potentially gain access to internal infrastructure
 ````
+### Vulnerabilities in Password Based Login
+````
+For websites that adopt a password-based login process, users either register for an account themselves or they are assigned an account by an administrator. This account is associated with a unique username and a secret password, which the user enters in a login form to authenticate themselves.
+
+In this scenario, the mere fact that they know the secret password is taken as sufficient proof of the user's identity. Consequently, the security of the website would be compromised if an attacker is able to either obtain or guess the login credentials of another user.
+
+This can be achieved in a variety of ways, as we'll explore below.
+````
+
+#### Brute-Force attacks
+````
+A brute-force attack is when an attacker uses a system of trial and error in an attempt to guess valid user credentials. These attacks are typically automated using wordlists of usernames and passwords. Automating this process, especially using dedicated tools, potentially enables an attacker to make vast numbers of login attempts at high speed.
+
+Brute-forcing is not always just a case of making completely random guesses at usernames and passwords. By also using basic logic or publicly available knowledge, attackers can fine-tune brute-force attacks to make much more educated guesses. This considerably increases the efficiency of such attacks. Websites that rely on password-based login as their sole method of authenticating users can be highly vulnerable if they do not implement sufficient brute-force protection.
+````
