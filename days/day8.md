@@ -11,7 +11,7 @@ whether a user is allowed to do something.
 In the context of a website or web application, authentication determines whether someone attempting to access the site with the 
 username Anishka really is the same person who created the account.
 
-Once Anishka is authenticated, her permissions determine whether or not he is authorized, for example, to access personal 
+Once Anishka is authenticated, her permissions determine whether or not she is authorized, for example, to access personal 
 information about other users or perform actions such as deleting another user's account.
 ````
 ### How do authentication vulnerabilities arise ?
