@@ -25,7 +25,8 @@ something that broadly resembles SAML-based single sign-on (SSO). In these mater
 
 OAuth authentication is generally implemented as follows:
 
-The user chooses the option to log in with their social media account. The client application then uses the social media site's OAuth service to request access to some data that it can use to identify the user. This could be the email address that is registered with their account, for example.
+The user chooses the option to log in with their social media account. The client application then uses the 
+social media site's OAuth service to request access to some data that it can use to identify the user. This could be the email address that is registered with their account, for example.
 After receiving an access token, the client application requests this data from the resource server, typically from a dedicated /userinfo endpoint.
 Once it has received the data, the client application uses it in place of a username to log the user in. The access token that it received from the authorization server is often used instead of a traditional password.
 ````
