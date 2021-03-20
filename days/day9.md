@@ -19,7 +19,8 @@ OAuth service provider - The website or application that controls the user's dat
 ````
 ### Oauth Authentication 
 ````
-For OAuth authentication mechanisms, the basic OAuth flows remain largely the same; the main difference is how the client application uses the data that it receives. From an end-user perspective, the result of OAuth authentication is something that broadly resembles SAML-based single sign-on (SSO). In these materials, we'll focus exclusively on vulnerabilities in this SSO-like use case.
+For OAuth authentication mechanisms, the basic OAuth flows remain largely the same; the main difference is how the 
+client application uses the data that it receives. From an end-user perspective, the result of OAuth authentication is something that broadly resembles SAML-based single sign-on (SSO). In these materials, we'll focus exclusively on vulnerabilities in this SSO-like use case.
 
 OAuth authentication is generally implemented as follows:
 
