@@ -57,6 +57,12 @@ Arjun - https://github.com/s0md3v/Arjun
 
 Using it, you wil be able to get a lot of parameters and will help you in hunting the bugs.
 ````
+### Some Tools for CMS Identificatin
+````
+Wappalyzer - https://www.wappalyzer.com/
+BuiltWith - https://builtwith.com/
+WhatWeb - https://github.com/urbanadventurer/WhatWeb
+````
 
 ### List of Tools 
 
