@@ -62,6 +62,8 @@ Using it, you wil be able to get a lot of parameters and will help you in huntin
 Wappalyzer - https://www.wappalyzer.com/
 BuiltWith - https://builtwith.com/
 WhatWeb - https://github.com/urbanadventurer/WhatWeb
+
+You can also install the browser extension for Wappalyzer and BuiltWith
 ````
 
 ### List of Tools 
