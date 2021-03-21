@@ -36,6 +36,18 @@ It is extremely important to note information about the target so that you do no
 
 There should be a proper methodology for approaching the target.
 ````
+### How to get the subdomains of a particular taget ?
+````
+There are different tools and websites available for this purpose like - 
+
+Project Discovery - https://chaos.projectdiscovery.io/#/
+Sublister - https://github.com/aboul3la/Sublist3r
+Amass - https://github.com/OWASP/Amass
+SubBrute - https://github.com/TheRook/subbrute
+Knock - https://github.com/guelfoweb/knock
+
+Use different tools and websites and try to collect all the subdomains so that you do no miss out on anything.
+````
 
 ### Tools 
 
