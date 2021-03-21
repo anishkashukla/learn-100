@@ -48,8 +48,17 @@ Knock - https://github.com/guelfoweb/knock
 
 Use different tools and websites and try to collect all the subdomains so that you do no miss out on anything.
 ````
+### How to get the parameters for a particular target ?
+````
+Some tools for getting the parameters are -
 
-### Tools 
+ParamSpider - https://github.com/devanshbatham/ParamSpider
+Arjun - https://github.com/s0md3v/Arjun
+
+Using it, you wil be able to get a lot of parameters and will help you in hunting the bugs.
+````
+
+### List of Tools 
 
 ````
 https://pentest-tools.com/
