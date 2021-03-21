@@ -30,3 +30,11 @@ social media site's OAuth service to request access to some data that it can use
 After receiving an access token, the client application requests this data from the resource server, typically from a dedicated /userinfo endpoint.
 Once it has received the data, the client application uses it in place of a username to log the user in. The access token that it received from the authorization server is often used instead of a traditional password.
 ````
+### How do OAuth authentication vulnerabilities arise ?
+````
+OAuth authentication vulnerabilities arise partly because the OAuth specification is relatively vague and flexible by design. Although there are a handful of mandatory components required for the basic functionality of each grant type, the vast majority of the implementation is completely optional. This includes many configuration settings that are necessary for keeping users' data secure. In short, there's plenty of opportunity for bad practice to creep in.
+
+One of the other key issues with OAuth is the general lack of built-in security features. The security relies almost entirely on developers using the right combination of configuration options and implementing their own additional security measures on top, such as robust input validation. As you've probably gathered, there's a lot to take in and this is quite easy to get wrong if you're inexperienced with OAuth.
+
+Depending on the grant type, highly sensitive data is also sent via the browser, which presents various opportunities for an attacker to intercept it
+````
