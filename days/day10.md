@@ -38,7 +38,8 @@ If the developers do not explicitly document any assumptions that are being made
 ````
 ### What is the impact of business logic vulnerabilities ?
 ````
-The impact of business logic vulnerabilities can, at times, be fairly trivial. It is a broad category and the impact is highly variable. 
+The impact of business logic vulnerabilities can, at times, be fairly trivial. 
+It is a broad category and the impact is highly variable. 
 However, any unintended behavior can potentially lead to high-severity attacks if an attacker is able to manipulate the application in the right way. 
 For this reason, quirky logic should ideally be fixed even if you can't work out how to exploit it yourself. There is always a risk that someone else will be able to.
 
