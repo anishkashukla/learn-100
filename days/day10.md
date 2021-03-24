@@ -43,7 +43,8 @@ However, any unintended behavior can potentially lead to high-severity attacks i
 For this reason, quirky logic should ideally be fixed even if you can't work out how to exploit it yourself. There is always a risk that someone else will be able to.
 
 Fundamentally, the impact of any logic flaw depends on what functionality it is related to. If the flaw is in the authentication mechanism, for example, this could have a serious impact on your overall security. 
-Attackers could potentially exploit this for privilege escalation, or to bypass authentication entirely, gaining access to sensitive data and functionality. This also exposes an increased attack surface for other exploits.
+Attackers could potentially exploit this for privilege escalation, or to bypass authentication entirely, gaining access to sensitive data and functionality. 
+This also exposes an increased attack surface for other exploits.
 
 Flawed logic in financial transactions can obviously lead to massive losses for the business through stolen funds, fraud, and so on.
 
