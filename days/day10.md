@@ -24,6 +24,7 @@ This makes them difficult to detect using automated vulnerability scanners. As a
 ````
 Business logic vulnerabilities often arise because the design and development teams make flawed assumptions about how users will interact with the application. 
 These bad assumptions can lead to inadequate validation of user input. 
+
 For example, if the developers assume that users will pass data exclusively via a web browser, the application may rely entirely on weak client-side controls to validate input. 
 These are easily bypassed by an attacker using an intercepting proxy.
 
@@ -60,6 +61,7 @@ You should identify what assumptions you have made about the server-side state a
 
 It is also important to make sure that both developers and testers are able to fully understand these assumptions and how the application is supposed to react in different scenarios. 
 This can help the team to spot logic flaws as early as possible. 
+
 To facilitate this, the development team should adhere to the following best practices wherever possible:
 
 Maintain clear design documents and data flows for all transactions and workflows, noting any assumptions that are made at each stage.
