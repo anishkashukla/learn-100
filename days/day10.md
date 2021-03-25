@@ -57,7 +57,8 @@ The keys to preventing business logic vulnerabilities are to:
 
 Make sure developers and testers understand the domain that the application serves
 Avoid making implicit assumptions about user behavior or the behavior of other parts of the application
-You should identify what assumptions you have made about the server-side state and implement the necessary logic to verify that these assumptions are met. This includes making sure that the value of any input is sensible before proceeding.
+You should identify what assumptions you have made about the server-side state and implement the necessary logic to verify that these assumptions are met. 
+This includes making sure that the value of any input is sensible before proceeding.
 
 It is also important to make sure that both developers and testers are able to fully understand these assumptions and how the application is supposed to react in different scenarios. 
 This can help the team to spot logic flaws as early as possible. 
