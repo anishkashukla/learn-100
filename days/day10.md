@@ -70,5 +70,6 @@ Note any references to other code that uses each component.
 Think about any side-effects of these dependencies if a malicious party were to manipulate them in an unusual way.
 Due to the relatively unique nature of many logic flaws, it is easy to brush them off as a one-time mistake due to human error and move on. 
 However, as we've demonstrated, these flaws are often the result of bad practices in the initial phases of building the application. 
-Analyzing why a logic flaw existed in the first place, and how it was missed by the team, can help you to spot weaknesses in your processes. By making minor adjustments, you can increase the likelihood that similar flaws will be cut off at the source or caught earlier in the development process.
+Analyzing why a logic flaw existed in the first place, and how it was missed by the team, can help you to spot weaknesses in your processes. 
+By making minor adjustments, you can increase the likelihood that similar flaws will be cut off at the source or caught earlier in the development process.
 ````
