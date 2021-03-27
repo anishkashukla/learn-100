@@ -4,7 +4,8 @@ Index | Technique
 **2** | How to start in Bug Bounty Hunting
 **3** | How to avoid Duplicates and submit a valid bug ?
 **4** | Resources 
-**5** | Tips
+**5** | Other Resource
+**6** | Tips
 
 
 ### What is Bug Bounty Hunting ?
