@@ -98,6 +98,8 @@ This is especially dangerous because it leads to the further assumption that cli
 However, an attacker can simply use tools such as Burp Proxy to tamper with the data after it has been sent by the browser but before it is passed into the server-side logic. 
 This effectively renders the client-side controls useless.
 
-Accepting data at face value, without performing proper integrity checks and server-side validation, can allow an attacker to do all kinds of damage with relatively minimal effort. Exactly what they are able to achieve is dependent on the functionality and what it is doing with the controllable data. 
+Accepting data at face value, without performing proper integrity checks and server-side validation, can allow an attacker to do 
+all kinds of damage with relatively minimal effort. 
+Exactly what they are able to achieve is dependent on the functionality and what it is doing with the controllable data. 
 In the right context, this kind of flaw can have devastating consequences for both business-related functionality and the security of the website itself.
 ````
