@@ -1,3 +1,16 @@
+Index | Technique
+--- | ---
+**1** | What is Recon in Bug Bounty Hunting ?
+**2** | Why ?
+**3** | Determing the target 
+**4** | Mapping the target 
+**5** | Making notes
+**6** | How to get the subdomains of a particular taget ?
+**7** | How to get the parameters for a particular target ?
+**8** | Tools for CMS Identification
+**9** | List of Tools
+**10** | Resources
+
 ### What is Recon in Bug Bounty Hunting ?
 
 ````
