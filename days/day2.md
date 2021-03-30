@@ -1,3 +1,13 @@
+Index | Technique
+--- | ---
+**1** | Why Vulnerabilities occur ?
+**2** | Handling User Access
+**3** | Handling User Input
+**4** | Boundary Validation
+**5** | Multistep Validation and Canonicalization
+**6** | Handling Attackers
+**7** | Managing the Application
+
 ### Do you ever thought that instead of using SSL and other external services in order to secure the website but still it is vulnerable to different attacks ?
 
 ````
@@ -5,7 +15,6 @@ Well, the prime reason for this is because the user is able to give some arbitra
 in the web application.
 User can give some malicious input such as <script>alert(1)</script> so it is important to handle the user input properly
 ````
-
 #### Handling User Access 
 ````
 Authentication - Proving who you are claiming to be
