@@ -144,6 +144,7 @@ By observing the application's response, you should try and answer the following
 Are there any limits that are imposed on the data?
 What happens when you reach those limits?
 Is any transformation or normalization being performed on your input?
+
 This may expose weak input validation that allows you to manipulate the application in unusual ways. Keep in mind that if you find one form on the target website that fails to safely handle unconventional input, it's likely that other forms will have the same issues.
 ````
 ### Making flawed assumptions about user behavior
