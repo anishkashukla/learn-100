@@ -148,11 +148,15 @@ This may expose weak input validation that allows you to manipulate the applicat
 ````
 ### Making flawed assumptions about user behavior
 ````
-One of the most common root causes of logic vulnerabilities is making flawed assumptions about user behavior. This can lead to a wide range of issues where developers have not considered potentially dangerous scenarios that violate these assumptions. In this section, we'll provide some cautionary examples of common assumptions that should be avoided and demonstrate how they can lead to dangerous logic flaws.
+One of the most common root causes of logic vulnerabilities is making flawed assumptions about user behavior. 
+This can lead to a wide range of issues where developers have not considered potentially dangerous scenarios that violate these assumptions. 
+In this section, we'll provide some cautionary examples of common assumptions that should be avoided and demonstrate how they can lead to dangerous logic flaws.
 ````
 #### Trusted users won't always remain trustworthy
 ````
-Applications may appear to be secure because they implement seemingly robust measures to enforce the business rules. Unfortunately, some applications make the mistake of assuming that, having passed these strict controls initially, the user and their data can be trusted indefinitely. This can result in relatively lax enforcement of the same controls from that point on.
+Applications may appear to be secure because they implement seemingly robust measures to enforce the business rules. 
+Unfortunately, some applications make the mistake of assuming that, having passed these strict controls initially, the user and their data can be trusted indefinitely. 
+This can result in relatively lax enforcement of the same controls from that point on.
 
 If business rules and security measures are not applied consistently throughout the application, this can lead to potentially dangerous loopholes that may be exploited by an attacker.
 ````
