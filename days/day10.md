@@ -163,9 +163,12 @@ If business rules and security measures are not applied consistently throughout 
 ````
 ### Users won't always supply mandatory input
 ````
-One misconception is that users will always supply values for mandatory input fields. Browsers may prevent ordinary users from submitting a form without a required input, but as we know, attackers can tamper with parameters in transit. This even extends to removing parameters entirely.
+One misconception is that users will always supply values for mandatory input fields. Browsers may prevent ordinary users from submitting a form without a required input, but as we know, attackers can tamper with parameters in transit. 
+This even extends to removing parameters entirely.
 
-This is a particular issue in cases where multiple functions are implemented within the same server-side script. In this case, the presence or absence of a particular parameter may determine which code is executed. Removing parameter values may allow an attacker to access code paths that are supposed to be out of reach.
+This is a particular issue in cases where multiple functions are implemented within the same server-side script. 
+In this case, the presence or absence of a particular parameter may determine which code is executed. 
+Removing parameter values may allow an attacker to access code paths that are supposed to be out of reach.
 
 When probing for logic flaws, you should try removing each parameter in turn and observing what effect this has on the response. You should make sure to:
 
