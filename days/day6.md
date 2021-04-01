@@ -1,3 +1,11 @@
+Index | Technique
+--- | ---
+**1** | Note Taking
+**2** | Why is it important ?
+**3** | How you can do that properly ?
+**4** | Tools that you can use for note keeping 
+**5** | Resources 
+
 ### Note Taking
 ````
 Note taking is very important for beginners, especially when you are still not creative, when you have not fully begun to think 
