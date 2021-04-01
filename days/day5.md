@@ -1,3 +1,11 @@
+Index | Technique
+--- | ---
+**1** | What is Shodan ?
+**2** | How to use Shodan ?
+**3** | Command Line Interface
+**4** | Resources
+**5** | Other information
+
 ### What is Shodan ?
 ````
 Shodan is a search engine that lets the user find specific types of computers connected to the internet using a variety 
