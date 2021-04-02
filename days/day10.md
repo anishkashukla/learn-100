@@ -184,5 +184,6 @@ The web interface will typically guide users through this process, taking them t
 However, attackers won't necessarily adhere to this intended sequence. 
 Failing to account for this possibility can lead to dangerous flaws that may be relatively simple to exploit.
 
-For example, many websites that implement two-factor authentication (2FA) require users to log in on one page before entering a verification code on a separate page. Assuming that users will always follow this process through to completion and, as a result, not verifying that they do, may allow attackers to bypass the 2FA step entirely.
+For example, many websites that implement two-factor authentication (2FA) require users to log in on one page before entering a verification code on a separate page. 
+Assuming that users will always follow this process through to completion and, as a result, not verifying that they do, may allow attackers to bypass the 2FA step entirely.
 ````
