@@ -1,3 +1,9 @@
+Index | Technique
+--- | ---
+**1** | What is fuzzing ?
+**2** | Why is it important ?
+**3** | Payload lists 
+
 ### What is fuzzing ?
 ````
 In the world of cybersecurity, fuzzing is the usually automated process of finding hackable software bugs by randomly 
