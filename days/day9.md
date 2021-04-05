@@ -1,3 +1,10 @@
+Index | Technique
+--- | ---
+**1** | What is OAuth ?
+**2** | How OAuth 2.0 works ?
+**3** | Oauth Authentication 
+**4** | How do OAuth authentication vulnerabilities arise ?
+
 ### What is OAuth ?
 ````
 Auth is a commonly used authorization framework that enables websites and web applications to request limited access to a user's account on another application. 
