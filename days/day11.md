@@ -10,16 +10,18 @@ The dangers of leaking sensitive user or business data are fairly obvious, but d
 Although some of this information will be of limited use, it can potentially be a starting point for exposing an additional attack surface, which may contain other interesting vulnerabilities. 
 The knowledge that you are able to gather could even provide the missing piece of the puzzle when trying to construct complex, high-severity attacks.
 
-Occasionally, sensitive information might be carelessly leaked to users who are simply browsing the website in a normal fashion. More commonly, however, an attacker needs to elicit the information disclosure by interacting with the website in unexpected or malicious ways. They will then carefully study the website's responses to try and identify interesting behavior.
+Occasionally, sensitive information might be carelessly leaked to users who are simply browsing the website in a normal fashion. 
+More commonly, however, an attacker needs to elicit the information disclosure by interacting with the website in unexpected or malicious ways. 
+They will then carefully study the website's responses to try and identify interesting behavior.
 ````
 ### What are some examples of information disclosure ?
 ````
 Some basic examples of information disclosure are as follows:
 
-Revealing the names of hidden directories, their structure, and their contents via a robots.txt file or directory listing
-Providing access to source code files via temporary backups
-Explicitly mentioning database table or column names in error messages
-Unnecessarily exposing highly sensitive information, such as credit card details
-Hard-coding API keys, IP addresses, database credentials, and so on in the source code
-Hinting at the existence or absence of resources, usernames, and so on via subtle differences in application behavior
+* Revealing the names of hidden directories, their structure, and their contents via a robots.txt file or directory listing
+* Providing access to source code files via temporary backups
+* Explicitly mentioning database table or column names in error messages
+* Unnecessarily exposing highly sensitive information, such as credit card details
+* Hard-coding API keys, IP addresses, database credentials, and so on in the source code
+* Hinting at the existence or absence of resources, usernames, and so on via subtle           differences in application behavior
 ````
