@@ -1,11 +1,14 @@
 ### What is information disclosure ?
 ````
-Information disclosure, also known as information leakage, is when a website unintentionally reveals sensitive information to its users. Depending on the context, websites may leak all kinds of information to a potential attacker, including:
+Information disclosure, also known as information leakage, is when a website unintentionally reveals sensitive information to its users. 
+Depending on the context, websites may leak all kinds of information to a potential attacker, including:
 
 Data about other users, such as usernames or financial information
 Sensitive commercial or business data
 Technical details about the website and its infrastructure
-The dangers of leaking sensitive user or business data are fairly obvious, but disclosing technical information can sometimes be just as serious. Although some of this information will be of limited use, it can potentially be a starting point for exposing an additional attack surface, which may contain other interesting vulnerabilities. The knowledge that you are able to gather could even provide the missing piece of the puzzle when trying to construct complex, high-severity attacks.
+The dangers of leaking sensitive user or business data are fairly obvious, but disclosing technical information can sometimes be just as serious. 
+Although some of this information will be of limited use, it can potentially be a starting point for exposing an additional attack surface, which may contain other interesting vulnerabilities. 
+The knowledge that you are able to gather could even provide the missing piece of the puzzle when trying to construct complex, high-severity attacks.
 
 Occasionally, sensitive information might be carelessly leaked to users who are simply browsing the website in a normal fashion. More commonly, however, an attacker needs to elicit the information disclosure by interacting with the website in unexpected or malicious ways. They will then carefully study the website's responses to try and identify interesting behavior.
 ````
