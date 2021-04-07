@@ -29,7 +29,11 @@ Some basic examples of information disclosure are as follows:
 ````
 Information disclosure vulnerabilities can arise in countless different ways, but these can broadly be categorized as follows:
 
-Failure to remove internal content from public content. For example, developer comments in markup are sometimes visible to users in the production environment.
-Insecure configuration of the website and related technologies. For example, failing to disable debugging and diagnostic features can sometimes provide attackers with useful tools to help them obtain sensitive information. Default configurations can also leave websites vulnerable, for example, by displaying overly verbose error messages.
-Flawed design and behavior of the application. For example, if a website returns distinct responses when different error states occur, this can also allow attackers to enumerate sensitive data, such as valid user credentials
+Failure to remove internal content from public content. 
+For example, developer comments in markup are sometimes visible to users in the production environment.
+Insecure configuration of the website and related technologies. 
+For example, failing to disable debugging and diagnostic features can sometimes provide attackers with useful tools to help them obtain sensitive information. 
+Default configurations can also leave websites vulnerable, for example, by displaying overly verbose error messages.
+Flawed design and behavior of the application. 
+For example, if a website returns distinct responses when different error states occur, this can also allow attackers to enumerate sensitive data, such as valid user credentials
 ````
