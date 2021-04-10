@@ -77,11 +77,14 @@ If you identify interesting parameters, you can try submitting unexpected data t
 Pay close attention; although responses sometimes explicitly disclose interesting information, they can also hint at the application's behavior more subtly. 
 For example, this could be a slight difference in the time taken to process the request. Even if the content of an error message doesn't disclose anything, sometimes the fact that one error case was encountered instead of another one is useful information in itself.
 
-You can automate much of this process using tools such as Burp Intruder. This provides several benefits. Most notably, you can:
+You can automate much of this process using tools such as Burp Intruder. 
+This provides several benefits. Most notably, you can:
 
 Add payload positions to parameters and use pre-built wordlists of fuzz strings to test a high volume of different inputs in quick succession.
 Easily identify differences in responses by comparing HTTP status codes, response times, lengths, and so on.
 Use grep matching rules to quickly identify occurrences of keywords, such as error, invalid, SELECT, SQL, and so on.
 Apply grep extraction rules to extract and compare the content of interesting items within responses.
-You can also use the Logger++ extension, available from the BApp store. In addition to logging requests and responses from all of Burp's tools, it allows you to define advanced filters for highlighting interesting entries. This is just one of the many Burp extensions that can help you find any sensitive data that is leaked by the website.
+You can also use the Logger++ extension, available from the BApp store. 
+In addition to logging requests and responses from all of Burp's tools, it allows you to define advanced filters for highlighting interesting entries. 
+This is just one of the many Burp extensions that can help you find any sensitive data that is leaked by the website.
 ````
