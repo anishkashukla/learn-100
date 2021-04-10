@@ -60,3 +60,26 @@ It is likely that minor technical details can be discovered in numerous ways on 
 Therefore, your main focus should be on the impact and exploitability of the leaked information, not just the presence of information disclosure as a standalone issue. 
 The obvious exception to this is when the leaked information is so sensitive that it warrants attention in its own right.
 ````
+### How to test for information disclosure vulnerabilities
+````
+Generally speaking, it is important not to develop "tunnel vision" during testing. In other words, you should avoid focussing too narrowly on a particular vulnerability. Sensitive data can be leaked in all kinds of places, so it is important not to miss anything that could be useful later. You will often find sensitive data while testing for something else. A key skill is being able to recognize interesting information whenever and wherever you do come across it.
+
+The following are some examples of high-level techniques and tools that you can use to help identify information disclosure vulnerabilities during testing.
+
+Fuzzing
+Using Burp Scanner
+Using Burp's engagement tools
+Engineering informative responses
+````
+### Fuzzing
+````
+If you identify interesting parameters, you can try submitting unexpected data types and specially crafted fuzz strings to see what effect this has. Pay close attention; although responses sometimes explicitly disclose interesting information, they can also hint at the application's behavior more subtly. For example, this could be a slight difference in the time taken to process the request. Even if the content of an error message doesn't disclose anything, sometimes the fact that one error case was encountered instead of another one is useful information in itself.
+
+You can automate much of this process using tools such as Burp Intruder. This provides several benefits. Most notably, you can:
+
+Add payload positions to parameters and use pre-built wordlists of fuzz strings to test a high volume of different inputs in quick succession.
+Easily identify differences in responses by comparing HTTP status codes, response times, lengths, and so on.
+Use grep matching rules to quickly identify occurrences of keywords, such as error, invalid, SELECT, SQL, and so on.
+Apply grep extraction rules to extract and compare the content of interesting items within responses.
+You can also use the Logger++ extension, available from the BApp store. In addition to logging requests and responses from all of Burp's tools, it allows you to define advanced filters for highlighting interesting entries. This is just one of the many Burp extensions that can help you find any sensitive data that is leaked by the website.
+````
