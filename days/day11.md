@@ -73,7 +73,9 @@ Engineering informative responses
 ````
 ### Fuzzing
 ````
-If you identify interesting parameters, you can try submitting unexpected data types and specially crafted fuzz strings to see what effect this has. Pay close attention; although responses sometimes explicitly disclose interesting information, they can also hint at the application's behavior more subtly. For example, this could be a slight difference in the time taken to process the request. Even if the content of an error message doesn't disclose anything, sometimes the fact that one error case was encountered instead of another one is useful information in itself.
+If you identify interesting parameters, you can try submitting unexpected data types and specially crafted fuzz strings to see what effect this has. 
+Pay close attention; although responses sometimes explicitly disclose interesting information, they can also hint at the application's behavior more subtly. 
+For example, this could be a slight difference in the time taken to process the request. Even if the content of an error message doesn't disclose anything, sometimes the fact that one error case was encountered instead of another one is useful information in itself.
 
 You can automate much of this process using tools such as Burp Intruder. This provides several benefits. Most notably, you can:
 
