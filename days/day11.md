@@ -88,3 +88,25 @@ You can also use the Logger++ extension, available from the BApp store.
 In addition to logging requests and responses from all of Burp's tools, it allows you to define advanced filters for highlighting interesting entries. 
 This is just one of the many Burp extensions that can help you find any sensitive data that is leaked by the website.
 ````
+### Using Burp Scanner
+````
+Burp Suite Professional users have the benefit of Burp Scanner. This provides live scanning features for auditing items while you browse, or you can schedule automated scans to crawl and audit the target site on your behalf. Both approaches will automatically flag many information disclosure vulnerabilities for you. For example, Burp Scanner will alert you if it finds sensitive information such as private keys, email addresses, and credit card numbers in a response. It will also identify any backup files, directory listings, and so on.
+````
+#### Using Burp's engagement tools
+
+Burp provides several engagement tools that you can use to find interesting information in the target website more easily. You can access the engagement tools from the context menu - just right-click on any HTTP message, Burp Proxy entry, or item in the site map and go to "Engagement tools".
+
+The following tools are particularly useful in this context.
+
+#### Search
+````
+You can use this tool to look for any expression within the selected item. You can fine-tune the results using various advanced search options, such as regex search or negative search. This is useful for quickly finding occurrences (or absences) of specific keywords of interest.
+````
+#### Find comments
+````
+You can use this tool to quickly extract any developer comments found in the selected item. It also provides tabs to instantly access the HTTP request/response cycle in which each comment was found.
+````
+#### Discover content
+````
+You can use this tool to identify additional content and functionality that is not linked from the website's visible content. This can be useful for finding additional directories and files that won't necessarily appear in the site map automatically.
+````
