@@ -120,9 +120,13 @@ This can be useful for finding additional directories and files that won't neces
 ````
 ### Engineering informative responses
 ````
-Verbose error messages can sometimes disclose interesting information while you go about your normal testing workflow. However, by studying the way error messages change according to your input, you can take this one step further. In some cases, you will be able to manipulate the website in order to extract arbitrary data via an error message.
+Verbose error messages can sometimes disclose interesting information while you go about your normal testing workflow. 
+However, by studying the way error messages change according to your input, you can take this one step further. In some cases, you will be able to manipulate the website in order to extract arbitrary data via an error message.
 
-There are numerous methods for doing this depending on the particular scenario you encounter. One common example is to make the application logic attempt an invalid action on a specific item of data. For example, submitting an invalid parameter value might lead to a stack trace or debug response that contains interesting details. You can sometimes cause error messages to disclose the value of your desired data in the response.
+There are numerous methods for doing this depending on the particular scenario you encounter. 
+One common example is to make the application logic attempt an invalid action on a specific item of data. 
+For example, submitting an invalid parameter value might lead to a stack trace or debug response that contains interesting details. 
+You can sometimes cause error messages to disclose the value of your desired data in the response.
 ````
 ### Common sources of information disclosure
 ````
