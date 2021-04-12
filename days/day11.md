@@ -97,12 +97,12 @@ For example, Burp Scanner will alert you if it finds sensitive information such 
 It will also identify any backup files, directory listings, and so on.
 ````
 #### Using Burp's engagement tools
-
+````
 Burp provides several engagement tools that you can use to find interesting information in the target website more easily. 
 You can access the engagement tools from the context menu - just right-click on any HTTP message, Burp Proxy entry, or item in the site map and go to "Engagement tools".
 
 The following tools are particularly useful in this context.
-
+````
 #### Search
 ````
 You can use this tool to look for any expression within the selected item. 
@@ -117,4 +117,24 @@ You can use this tool to quickly extract any developer comments found in the sel
 ````
 You can use this tool to identify additional content and functionality that is not linked from the website's visible content. 
 This can be useful for finding additional directories and files that won't necessarily appear in the site map automatically.
+````
+### Engineering informative responses
+````
+Verbose error messages can sometimes disclose interesting information while you go about your normal testing workflow. However, by studying the way error messages change according to your input, you can take this one step further. In some cases, you will be able to manipulate the website in order to extract arbitrary data via an error message.
+
+There are numerous methods for doing this depending on the particular scenario you encounter. One common example is to make the application logic attempt an invalid action on a specific item of data. For example, submitting an invalid parameter value might lead to a stack trace or debug response that contains interesting details. You can sometimes cause error messages to disclose the value of your desired data in the response.
+````
+### Common sources of information disclosure
+````
+Information disclosure can occur in a wide variety of contexts within a website. The following are some common examples of places where you can look to see if sensitive information is exposed.
+
+Files for web crawlers
+Directory listings
+Developer comments 
+Error messages 
+Debugging data 
+User account pages 
+Backup files 
+Insecure configuration 
+Version control history 
 ````
