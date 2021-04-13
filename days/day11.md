@@ -144,19 +144,27 @@ Version control history
 ````
 ### Files for web crawlers
 ````
-Many websites provide files at /robots.txt and /sitemap.xml to help crawlers navigate their site. Among other things, these files often list specific directories that the crawlers should skip, for example, because they may contain sensitive information.
+Many websites provide files at /robots.txt and /sitemap.xml to help crawlers navigate their site. 
+Among other things, these files often list specific directories that the crawlers should skip, for example, because they may contain sensitive information.
 
-As these files are not usually linked from within the website, they may not immediately appear in Burp's site map. However, it is worth trying to navigate to /robots.txt or /sitemap.xml manually to see if you find anything of use.
+As these files are not usually linked from within the website, they may not immediately appear in Burp's site map. 
+However, it is worth trying to navigate to /robots.txt or /sitemap.xml manually to see if you find anything of use.
 ````
 ### Directory listings
 ````
-Web servers can be configured to automatically list the contents of directories that do not have an index page present. This can aid an attacker by enabling them to quickly identify the resources at a given path, and proceed directly to analyzing and attacking those resources. It particularly increases the exposure of sensitive files within the directory that are not intended to be accessible to users, such as temporary files and crash dumps.
+Web servers can be configured to automatically list the contents of directories that do not have an index page present. 
+This can aid an attacker by enabling them to quickly identify the resources at a given path, and proceed directly to analyzing and attacking those resources. 
+It particularly increases the exposure of sensitive files within the directory that are not intended to be accessible to users, such as temporary files and crash dumps.
 
-Directory listings themselves are not necessarily a security vulnerability. However, if the website also fails to implement proper access control, leaking the existence and location of sensitive resources in this way is clearly an issue.
+Directory listings themselves are not necessarily a security vulnerability. 
+However, if the website also fails to implement proper access control, leaking the existence and location of sensitive resources in this way is clearly an issue.
 ````
 ### Developer comments
 ````
-During development, in-line HTML comments are sometimes added to the markup. These comments are typically stripped before changes are deployed to the production environment. However, comments can sometimes be forgotten, missed, or even left in deliberately because someone wasn't fully aware of the security implications. Although these comments are not visible on the rendered page, they can easily be accessed using Burp, or even your browser's built-in developer tools.
+During development, in-line HTML comments are sometimes added to the markup. These comments are typically stripped before changes are deployed to the production environment. 
+However, comments can sometimes be forgotten, missed, or even left in deliberately because someone wasn't fully aware of the security implications. 
+Although these comments are not visible on the rendered page, they can easily be accessed using Burp, or even your browser's built-in developer tools.
 
-Occasionally, these comments contain information that is useful to an attacker. For example, they might hint at the existence of hidden directories or provide clues about the application logic.
+Occasionally, these comments contain information that is useful to an attacker. 
+For example, they might hint at the existence of hidden directories or provide clues about the application logic.
 ````
