@@ -191,7 +191,8 @@ Observing differences in error messages is a crucial aspect of many techniques, 
 ````
 ### Debugging data
 ````
-For debugging purposes, many websites generate custom error messages and logs that contain large amounts of information about the application's behavior. While this information is useful during development, it is also extremely useful to an attacker if it is leaked in the production environment.
+For debugging purposes, many websites generate custom error messages and logs that contain large amounts of information about the application's behavior. 
+While this information is useful during development, it is also extremely useful to an attacker if it is leaked in the production environment.
 
 Debug messages can sometimes contain vital information for developing an attack, including:
 
@@ -203,13 +204,17 @@ Debugging information may sometimes be logged in a separate file. If an attacker
 ````
 ### User account pages
 ````
-By their very nature, a user's profile or account page usually contains sensitive information, such as the user's email address, phone number, API key, and so on. As users normally only have access to their own account page, this does not represent a vulnerability in itself. However, some websites contain logic flaws that potentially allow an attacker to leverage these pages in order to view other users' data.
+By their very nature, a user's profile or account page usually contains sensitive information, such as the user's email address, phone number, API key, and so on. 
+As users normally only have access to their own account page, this does not represent a vulnerability in itself. 
+However, some websites contain logic flaws that potentially allow an attacker to leverage these pages in order to view other users' data.
 
 For example, consider a website that determines which user's account page to load based on a user parameter.
 
 GET /user/personal-info?user=carlos
 
-Most websites will take steps to prevent an attacker from simply changing this parameter to access arbitrary users' account pages. However, sometimes the logic for loading individual items of data is not as robust.
+Most websites will take steps to prevent an attacker from simply changing this parameter to access arbitrary users' account pages. 
+However, sometimes the logic for loading individual items of data is not as robust.
 
-An attacker may not be able to load another users' account page entirely, but the logic for fetching and rendering the user's registered email address, for example, might not check that the user parameter matches the user that is currently logged in. In this case, simply changing the user parameter would allow an attacker to display arbitrary users' email addresses on their own account page.
+An attacker may not be able to load another users' account page entirely, but the logic for fetching and rendering the user's registered email address, for example, might not check that the user parameter matches the user that is currently logged in. 
+In this case, simply changing the user parameter would allow an attacker to display arbitrary users' email addresses on their own account page.
 ````
