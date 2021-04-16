@@ -229,15 +229,22 @@ Once an attacker has access to the source code, this can be a huge step towards 
 ````
 ### Information disclosure due to insecure configuration
 ````
-Websites are sometimes vulnerable as a result of improper configuration. This is especially common due to the widespread use of third-party technologies, whose vast array of configuration options are not necessarily well-understood by those implementing them.
+Websites are sometimes vulnerable as a result of improper configuration. 
+This is especially common due to the widespread use of third-party technologies, whose vast array of configuration options are not necessarily well-understood by those implementing them.
 
-In other cases, developers might forget to disable various debugging options in the production environment. For example, the HTTP TRACE method is designed for diagnostic purposes. If enabled, the web server will respond to requests that use the TRACE method by echoing in the response the exact request that was received. This behavior is often harmless, but occasionally leads to information disclosure, such as the name of internal authentication headers that may be appended to requests by reverse proxies.
+In other cases, developers might forget to disable various debugging options in the production environment. 
+For example, the HTTP TRACE method is designed for diagnostic purposes. If enabled, the web server will respond to requests that use the TRACE method by echoing in the response the exact request that was received. 
+This behavior is often harmless, but occasionally leads to information disclosure, such as the name of internal authentication headers that may be appended to requests by reverse proxies.
 ````
 ### Version control history
 ````
-Virtually all websites are developed using some form of version control system, such as Git. By default, a Git project stores all of its version control data in a folder called .git. Occasionally, websites expose this directory in the production environment. In this case, you might be able to access it by simply browsing to /.git.
+Virtually all websites are developed using some form of version control system, such as Git. By default, a Git project stores all of its version control data in a folder called .git. 
+Occasionally, websites expose this directory in the production environment. In this case, you might be able to access it by simply browsing to /.git.
 
-While it is often impractical to manually browse the raw file structure and contents, there are various methods for downloading the entire .git directory. You can then open it using your local installation of Git to gain access to the website's version control history. This may include logs containing committed changes and other interesting information.
+While it is often impractical to manually browse the raw file structure and contents, there are various methods for downloading the entire .git directory. 
+You can then open it using your local installation of Git to gain access to the website's version control history. 
+This may include logs containing committed changes and other interesting information.
 
-This might not give you access to the full source code, but comparing the diff will allow you to read small snippets of code. As with any source code, you might also find sensitive data hard-coded within some of the changed lines.
+This might not give you access to the full source code, but comparing the diff will allow you to read small snippets of code. 
+As with any source code, you might also find sensitive data hard-coded within some of the changed lines.
 ````
