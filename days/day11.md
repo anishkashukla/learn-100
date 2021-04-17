@@ -252,13 +252,13 @@ As with any source code, you might also find sensitive data hard-coded within so
 ````
 Preventing information disclosure completely is tricky due to the huge variety of ways in which it can occur. However, there are some general best practices that you can follow to minimize the risk of these kinds of vulnerability creeping into your own websites.
 
-Make sure that everyone involved in producing the website is fully aware of what information is considered sensitive. 
+* Make sure that everyone involved in producing the website is fully aware of what information is considered sensitive. 
 Sometimes seemingly harmless information can be much more useful to an attacker than people realize. 
 Highlighting these dangers can help make sure that sensitive information is handled more securely in general by your organization.
-Audit any code for potential information disclosure as part of your QA or build processes. It should be relatively easy to automate some of the associated tasks, such as stripping developer comments.
-Use generic error messages as much as possible. Don't provide attackers with clues about application behavior unnecessarily.
-Double-check that any debugging or diagnostic features are disabled in the production environment.
-Make sure you fully understand the configuration settings, and security implications, of any third-party technology that you implement. 
+* Audit any code for potential information disclosure as part of your QA or build processes. It should be relatively easy to automate some of the associated tasks, such as stripping developer comments.
+* Use generic error messages as much as possible. Don't provide attackers with clues about application behavior unnecessarily.
+* Double-check that any debugging or diagnostic features are disabled in the production environment.
+* Make sure you fully understand the configuration settings, and security implications, of any third-party technology that you implement. 
 Take the time to investigate and disable any features and settings that you don't actually need.
 ````
 
