@@ -15,8 +15,9 @@ An SSRF exploit that causes connections to external third-party systems might re
 ### Common SSRF attacks
 ````
 SSRF attacks often exploit trust relationships to escalate an attack from the vulnerable application and perform unauthorized actions. These trust relationships might exist in relation to the server itself, or in relation to other back-end systems within the same organization.
-
-SSRF attacks against the server itself
+````
+### SSRF attacks against the server itself
+````
 In an SSRF attack against the server itself, the attacker induces the application to make an HTTP request back to the server that is hosting the application, via its loopback network interface. 
 This will typically involve supplying a URL with a hostname like 127.0.0.1 (a reserved IP address that points to the loopback adapter) or localhost (a commonly used name for the same adapter).
 
@@ -52,6 +53,41 @@ The access control check might be implemented in a different component that sits
 For disaster recovery purposes, the application might allow administrative access without logging in, to any user coming from the local machine. 
 This provides a way for an administrator to recover the system in the event they lose their credentials. The assumption here is that only a fully trusted user would be coming directly from the server itself.
 The administrative interface might be listening on a different port number than the main application, and so might not be reachable directly by users.
+
 These kind of trust relationships, where requests originating from the local machine are handled differently than ordinary requests, is often what makes SSRF into a critical vulnerability.
 ````
+### SSRF attacks against other back-end systems
+````
+Another type of trust relationship that often arises with server-side request forgery is where the application server is able to interact with other back-end systems that are not directly reachable by users. These systems often have non-routable private IP addresses. Since the back-end systems are normally protected by the network topology, they often have a weaker security posture. In many cases, internal back-end systems contain sensitive functionality that can be accessed without authentication by anyone who is able to interact with the systems.
 
+In the preceding example, suppose there is an administrative interface at the back-end URL https://192.168.0.68/admin. Here, an attacker can exploit the SSRF vulnerability to access the administrative interface by submitting the following request:
+
+POST /product/stock HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 118
+
+stockApi=http://192.168.0.68/admin
+````
+### Circumventing common SSRF defenses
+````
+It is common to see applications containing SSRF behavior together with defenses aimed at preventing malicious exploitation. Often, these defenses can be circumvented.
+
+SSRF with blacklist-based input filters
+Some applications block input containing hostnames like 127.0.0.1 and localhost, or sensitive URLs like /admin. In this situation, you can often circumvent the filter using various techniques:
+
+Using an alternative IP representation of 127.0.0.1, such as 2130706433, 017700000001, or 127.1.
+Registering your own domain name that resolves to 127.0.0.1. You can use spoofed.burpcollaborator.net for this purpose.
+Obfuscating blocked strings using URL encoding or case variation.
+````
+### SSRF with whitelist-based input filters
+````
+Some applications only allow input that matches, begins with, or contains, a whitelist of permitted values. In this situation, you can sometimes circumvent the filter by exploiting inconsistencies in URL parsing.
+
+The URL specification contains a number of features that are liable to be overlooked when implementing ad hoc parsing and validation of URLs:
+
+You can embed credentials in a URL before the hostname, using the @ character. For example: https://expected-host@evil-host.
+You can use the # character to indicate a URL fragment. For example: https://evil-host#expected-host.
+You can leverage the DNS naming hierarchy to place required input into a fully-qualified DNS name that you control. For example: https://expected-host.evil-host.
+You can URL-encode characters to confuse the URL-parsing code. This is particularly useful if the code that implements the filter handles URL-encoded characters differently than the code that performs the back-end HTTP request.
+You can use combinations of these techniques together.
+````
