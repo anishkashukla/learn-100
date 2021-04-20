@@ -58,9 +58,12 @@ These kind of trust relationships, where requests originating from the local mac
 ````
 ### SSRF attacks against other back-end systems
 ````
-Another type of trust relationship that often arises with server-side request forgery is where the application server is able to interact with other back-end systems that are not directly reachable by users. These systems often have non-routable private IP addresses. Since the back-end systems are normally protected by the network topology, they often have a weaker security posture. In many cases, internal back-end systems contain sensitive functionality that can be accessed without authentication by anyone who is able to interact with the systems.
+Another type of trust relationship that often arises with server-side request forgery is where the application server is able to interact with other back-end systems that are not directly reachable by users. 
+These systems often have non-routable private IP addresses. Since the back-end systems are normally protected by the network topology, they often have a weaker security posture. 
+In many cases, internal back-end systems contain sensitive functionality that can be accessed without authentication by anyone who is able to interact with the systems.
 
-In the preceding example, suppose there is an administrative interface at the back-end URL https://192.168.0.68/admin. Here, an attacker can exploit the SSRF vulnerability to access the administrative interface by submitting the following request:
+In the preceding example, suppose there is an administrative interface at the back-end URL https://192.168.0.68/admin. 
+Here, an attacker can exploit the SSRF vulnerability to access the administrative interface by submitting the following request:
 
 POST /product/stock HTTP/1.0
 Content-Type: application/x-www-form-urlencoded
@@ -75,13 +78,14 @@ It is common to see applications containing SSRF behavior together with defenses
 SSRF with blacklist-based input filters
 Some applications block input containing hostnames like 127.0.0.1 and localhost, or sensitive URLs like /admin. In this situation, you can often circumvent the filter using various techniques:
 
-Using an alternative IP representation of 127.0.0.1, such as 2130706433, 017700000001, or 127.1.
-Registering your own domain name that resolves to 127.0.0.1. You can use spoofed.burpcollaborator.net for this purpose.
-Obfuscating blocked strings using URL encoding or case variation.
+* Using an alternative IP representation of 127.0.0.1, such as 2130706433, 017700000001, or 127.1.
+* Registering your own domain name that resolves to 127.0.0.1. You can use spoofed.burpcollaborator.net for this purpose.
+* Obfuscating blocked strings using URL encoding or case variation.
 ````
 ### SSRF with whitelist-based input filters
 ````
-Some applications only allow input that matches, begins with, or contains, a whitelist of permitted values. In this situation, you can sometimes circumvent the filter by exploiting inconsistencies in URL parsing.
+Some applications only allow input that matches, begins with, or contains, a whitelist of permitted values. 
+In this situation, you can sometimes circumvent the filter by exploiting inconsistencies in URL parsing.
 
 The URL specification contains a number of features that are liable to be overlooked when implementing ad hoc parsing and validation of URLs:
 
