@@ -95,3 +95,50 @@ You can leverage the DNS naming hierarchy to place required input into a fully-q
 You can URL-encode characters to confuse the URL-parsing code. This is particularly useful if the code that implements the filter handles URL-encoded characters differently than the code that performs the back-end HTTP request.
 You can use combinations of these techniques together.
 ````
+### Bypassing SSRF filters via open redirection
+
+````
+It is sometimes possible to circumvent any kind of filter-based defenses by exploiting an open redirection vulnerability.
+
+In the preceding SSRF example, suppose the user-submitted URL is strictly validated to prevent malicious exploitation of the SSRF behavior. However, the application whose URLs are allowed contains an open redirection vulnerability. Provided the API used to make the back-end HTTP request supports redirections, you can construct a URL that satisfies the filter and results in a redirected request to the desired back-end target.
+
+For example, suppose the application contains an open redirection vulnerability in which the following URL:
+
+/product/nextProduct?currentProductId=6&path=http://evil-user.net
+
+returns a redirection to:
+
+http://evil-user.net
+
+You can leverage the open redirection vulnerability to bypass the URL filter, and exploit the SSRF vulnerability as follows:
+
+POST /product/stock HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 118
+
+stockApi=http://weliketoshop.net/product/nextProduct?currentProductId=6&path=http://192.168.0.68/admin
+
+This SSRF exploit works because the application first validates that the supplied stockAPI URL is on an allowed domain, which it is. The application then requests the supplied URL, which triggers the open redirection. It follows the redirection, and makes a request to the internal URL of the attacker's choosing
+````
+### Blind SSRF vulnerabilities
+````
+Blind SSRF vulnerabilities arise when an application can be induced to issue a back-end HTTP request to a supplied URL, but the response from the back-end request is not returned in the application's front-end response.
+
+Blind SSRF is generally harder to exploit but can sometimes lead to full remote code execution on the server or other back-end components.
+````
+### Finding hidden attack surface for SSRF vulnerabilities
+````
+Many server-side request forgery vulnerabilities are relatively easy to spot, because the application's normal traffic involves request parameters containing full URLs. Other examples of SSRF are harder to locate.
+````
+### Partial URLs in requests
+````
+Sometimes, an application places only a hostname or part of a URL path into request parameters. The value submitted is then incorporated server-side into a full URL that is requested. If the value is readily recognized as a hostname or URL path, then the potential attack surface might be obvious. However, exploitability as full SSRF might be limited since you do not control the entire URL that gets requested.
+````
+### URLs within data formats
+````
+Some applications transmit data in formats whose specification allows the inclusion of URLs that might get requested by the data parser for the format. An obvious example of this is the XML data format, which has been widely used in web applications to transmit structured data from the client to the server. When an application accepts data in XML format and parses it, it might be vulnerable to XXE injection, and in turn be vulnerable to SSRF via XXE. We'll cover this in more detail when we look at XXE injection vulnerabilities.
+````
+### SSRF via the Referer header
+````
+Some applications employ server-side analytics software that tracks visitors. This software often logs the Referer header in requests, since this is of particular interest for tracking incoming links. Often the analytics software will actually visit any third-party URL that appears in the Referer header. This is typically done to analyze the contents of referring sites, including the anchor text that is used in the incoming links. As a result, the Referer header often represents fruitful attack surface for SSRF vulnerabilities. See Blind SSRF vulnerabilities for examples of vulnerabilities involving the Referer header.
+````
