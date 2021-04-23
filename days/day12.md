@@ -176,8 +176,7 @@ However, exploitability as full SSRF might be limited since you do not control t
 ### URLs within data formats
 ````
 Some applications transmit data in formats whose specification allows the inclusion of URLs that might get requested by the data parser for the format. 
-An obvious example of this is the XML data format, which has been widely used in web applications to transmit structured data from the client to the server. 
-When an application accepts data in XML format and parses it, it might be vulnerable to XXE injection, and in turn be vulnerable to SSRF via XXE. 
+An obvious example of this is the XML data format, which has been widely used in web applications to transmit structured data from the client to the server. When an application accepts data in XML format and parses it, it might be vulnerable to XXE injection, and in turn be vulnerable to SSRF via XXE. 
 ````
 ### SSRF via the Referer header
 ````
