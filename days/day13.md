@@ -56,3 +56,36 @@ It allows an attacker to reuse existing application code in harmful ways, result
 
 Even in cases where remote code execution is not possible, insecure deserialization can lead to privilege escalation, arbitrary file access, and denial-of-service attacks.
 ````
+### How to identify insecure deserialization
+````
+Identifying insecure deserialization is relatively simple regardless of whether you are whitebox or blackbox testing.
+
+During auditing, you should look at all data being passed into the website and try to identify anything that looks like serialized data. Serialized data can be identified relatively easily if you know the format that different languages use. In this section, we'll show examples from both PHP and Java serialization. Once you identify serialized data, you can test whether you are able to control it.
+````
+### PHP serialization format
+````
+PHP uses a mostly human-readable string format, with letters representing the data type and numbers representing the length of each entry. For example, consider a User object with the attributes:
+
+$user->name = "carlos";
+$user->isLoggedIn = true;
+
+When serialized, this object may look something like this:
+
+O:4:"User":2:{s:4:"name":s:6:"carlos"; s:10:"isLoggedIn":b:1;}
+
+This can be interpreted as follows:
+
+O:4:"User" - An object with the 4-character class name "User"
+2 - the object has 2 attributes
+s:4:"name" - The key of the first attribute is the 4-character string "name"
+s:6:"carlos" - The value of the first attribute is the 6-character string "carlos"
+s:10:"isLoggedIn" - The key of the second attribute is the 10-character string "isLoggedIn"
+b:1 - The value of the second attribute is the boolean value true
+The native methods for PHP serialization are serialize() and unserialize(). If you have source code access, you should start by looking for unserialize() anywhere in the code and investigating further.
+````
+### Java serialization format
+````
+Some languages, such as Java, use binary serialization formats. This is more difficult to read, but you can still identify serialized data if you know how to recognize a few tell-tale signs. For example, serialized Java objects always begin with the same bytes, which are encoded as ac ed in hexadecimal and rO0 in Base64.
+
+Any class that implements the interface java.io.Serializable can be serialized and deserialized. If you have source code access, take note of any code that uses the readObject() method, which is used to read and deserialize data from an InputStream.
+````
