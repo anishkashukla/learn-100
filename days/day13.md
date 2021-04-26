@@ -56,6 +56,8 @@ It allows an attacker to reuse existing application code in harmful ways, result
 
 Even in cases where remote code execution is not possible, insecure deserialization can lead to privilege escalation, arbitrary file access, and denial-of-service attacks.
 ````
+### Exploiting insecure deserialization vulnerabilities
+
 ### How to identify insecure deserialization
 ````
 Identifying insecure deserialization is relatively simple regardless of whether you are whitebox or blackbox testing.
