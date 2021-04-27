@@ -91,3 +91,28 @@ Some languages, such as Java, use binary serialization formats. This is more dif
 
 Any class that implements the interface java.io.Serializable can be serialized and deserialized. If you have source code access, take note of any code that uses the readObject() method, which is used to read and deserialize data from an InputStream.
 ````
+### Manipulating serialized objects
+````
+Exploiting some deserialization vulnerabilities can be as easy as changing an attribute in a serialized object. As the object state is persisted, you can study the serialized data to identify and edit interesting attribute values. You can then pass the malicious object into the website via its deserialization process. This is the initial step for a basic deserialization exploit.
+
+Broadly speaking, there are two approaches you can take when manipulating serialized objects. You can either edit the object directly in its byte stream form, or you can write a short script in the corresponding language to create and serialize the new object yourself. The latter approach is often easier when working with binary serialization formats.
+````
+### Modifying object attributes
+````
+When tampering with the data, as long as the attacker preserves a valid serialized object, the deserialization process will create a server-side object with the modified attribute values.
+
+As a simple example, consider a website that uses a serialized User object to store data about a user's session in a cookie. If an attacker spotted this serialized object in an HTTP request, they might decode it to find the following byte stream:
+
+O:4:"User":2:{s:8:"username";s:6:"carlos";s:7:"isAdmin";b:0;}
+
+The isAdmin attribute is an obvious point of interest. An attacker could simply change the boolean value of the attribute to 1 (true), re-encode the object, and overwrite their current cookie with this modified value. In isolation, this has no effect. However, let's say the website uses this cookie to check whether the current user has access to certain administrative functionality:
+
+$user = unserialize($_COOKIE);
+if ($user->isAdmin === true) {
+// allow access to admin interface
+}
+
+This vulnerable code would instantiate a User object based on the data from the cookie, including the attacker-modified isAdmin attribute. At no point is the authenticity of the serialized object checked. This data is then passed into the conditional statement and, in this case, would allow for an easy privilege escalation.
+
+This simple scenario is not common in the wild. However, editing an attribute value in this way demonstrates the first step towards accessing the massive amount of attack-surface exposed by insecure deserialization.
+````
