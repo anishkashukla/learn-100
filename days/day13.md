@@ -126,9 +126,11 @@ This simple scenario is not common in the wild. However, editing an attribute va
 ````
 We've seen how you can modify attribute values in serialized objects, but it's also possible to supply unexpected data types.
 
-PHP-based logic is particularly vulnerable to this kind of manipulation due to the behavior of its loose comparison operator (==) when comparing different data types. For example, if you perform a loose comparison between an integer and a string, PHP will attempt to convert the string to an integer, meaning that 5 == "5" evaluates to true.
+PHP-based logic is particularly vulnerable to this kind of manipulation due to the behavior of its loose comparison operator (==) when comparing different data types. 
+For example, if you perform a loose comparison between an integer and a string, PHP will attempt to convert the string to an integer, meaning that 5 == "5" evaluates to true.
 
-Unusually, this also works for any alphanumeric string that starts with a number. In this case, PHP will effectively convert the entire string to an integer value based on the initial number. The rest of the string is ignored completely. Therefore, 5 == "5 of something" is in practice treated as 5 == 5.
+Unusually, this also works for any alphanumeric string that starts with a number. In this case, PHP will effectively convert the entire string to an integer value based on the initial number. The rest of the string is ignored completely. 
+Therefore, 5 == "5 of something" is in practice treated as 5 == 5.
 
 This becomes even stranger when comparing a string the integer 0:
 
@@ -143,7 +145,9 @@ if ($login['password'] == $password) {
 // log in successfully
 }
 
-Let's say an attacker modified the password attribute so that it contained the integer 0 instead of the expected string. As long as the stored password does not start with a number, the condition would always return true, enabling an authentication bypass. Note that this is only possible because deserialization preserves the data type. If the code fetched the password from the request directly, the 0 would be converted to a string and the condition would evaluate to false.
+Let's say an attacker modified the password attribute so that it contained the integer 0 instead of the expected string. 
+As long as the stored password does not start with a number, the condition would always return true, enabling an authentication bypass. 
+Note that this is only possible because deserialization preserves the data type. If the code fetched the password from the request directly, the 0 would be converted to a string and the condition would evaluate to false.
 
 Be aware that when modifying data types in any serialized object format, it is important to remember to update any type labels and length indicators in the serialized data too. Otherwise, the serialized object will be corrupted and will not be deserialized.
 
@@ -151,23 +155,31 @@ When working directly with binary formats, we recommend using the Hackvertor ext
 ````
 ### Using application functionality
 ````
-As well as simply checking attribute values, a website's functionality might also perform dangerous operations on data from a deserialized object. In this case, you can use insecure deserialization to pass in unexpected data and leverage the related functionality to do damage.
+As well as simply checking attribute values, a website's functionality might also perform dangerous operations on data from a deserialized object. 
+In this case, you can use insecure deserialization to pass in unexpected data and leverage the related functionality to do damage.
 
-For example, as part of a website's "Delete user" functionality, the user's profile picture is deleted by accessing the file path in the $user->image_location attribute. If this $user was created from a serialized object, an attacker could exploit this by passing in a modified object with the image_location set to an arbitrary file path. Deleting their own user account would then delete this arbitrary file as well.
+For example, as part of a website's "Delete user" functionality, the user's profile picture is deleted by accessing the file path in the $user->image_location attribute. 
+If this $user was created from a serialized object, an attacker could exploit this by passing in a modified object with the image_location set to an arbitrary file path. Deleting their own user account would then delete this arbitrary file as well.
 
-This example relies on the attacker manually invoking the dangerous method via user-accessible functionality. However, insecure deserialization becomes much more interesting when you create exploits that pass data into dangerous methods automatically. This is enabled by the use of "magic methods".
+This example relies on the attacker manually invoking the dangerous method via user-accessible functionality. 
+However, insecure deserialization becomes much more interesting when you create exploits that pass data into dangerous methods automatically. This is enabled by the use of "magic methods".
 ````
 ### Magic methods
 ````
 Magic methods are a special subset of methods that you do not have to explicitly invoke. Instead, they are invoked automatically whenever a particular event or scenario occurs. Magic methods are a common feature of object-oriented programming in various languages. They are sometimes indicated by prefixing or surrounding the method name with double-underscores.
 
-Developers can add magic methods to a class in order to predetermine what code should be executed when the corresponding event or scenario occurs. Exactly when and why a magic method is invoked differs from method to method. One of the most common examples in PHP is __construct(), which is invoked whenever an object of the class is instantiated, similar to Python's __init__. Typically, constructor magic methods like this contain code to initialize the attributes of the instance. However, magic methods can be customized by developers to execute any code they want.
+Developers can add magic methods to a class in order to predetermine what code should be executed when the corresponding event or scenario occurs. 
+Exactly when and why a magic method is invoked differs from method to method. One of the most common examples in PHP is __construct(), which is invoked whenever an object of the class is instantiated, similar to Python's __init__. 
+Typically, constructor magic methods like this contain code to initialize the attributes of the instance. However, magic methods can be customized by developers to execute any code they want.
 
-Magic methods are widely used and do not represent a vulnerability on their own. But they can become dangerous when the code that they execute handles attacker-controllable data, for example, from a deserialized object. This can be exploited by an attacker to automatically invoke methods on the deserialized data when the corresponding conditions are met.
+Magic methods are widely used and do not represent a vulnerability on their own. But they can become dangerous when the code that they execute handles attacker-controllable data, for example, from a deserialized object. 
+This can be exploited by an attacker to automatically invoke methods on the deserialized data when the corresponding conditions are met.
 
-Most importantly in this context, some languages have magic methods that are invoked automatically during the deserialization process. For example, PHP's unserialize() method looks for and invokes an object's __wakeup() magic method.
+Most importantly in this context, some languages have magic methods that are invoked automatically during the deserialization process. 
+For example, PHP's unserialize() method looks for and invokes an object's __wakeup() magic method.
 
-In Java deserialization, the same applies to the readObject() method, which essentially acts like a constructor for "re-initializing" a serialized object. The ObjectInputStream.readObject() method is used to read data from the initial byte stream. However, serializable classes can also declare their own readObject() methods as follows:
+In Java deserialization, the same applies to the readObject() method, which essentially acts like a constructor for "re-initializing" a serialized object. 
+The ObjectInputStream.readObject() method is used to read data from the initial byte stream. However, serializable classes can also declare their own readObject() methods as follows:
 
 private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {...};
 
