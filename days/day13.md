@@ -216,8 +216,9 @@ This is typically done using a magic method that is invoked during deserializati
 In the wild, many insecure deserialization vulnerabilities will only be exploitable through the use of gadget chains. 
 This can sometimes be a simple one or two-step chain, but constructing high-severity attacks will likely require a more elaborate sequence of object instantiations and method invocations. 
 Therefore, being able to construct gadget chains is one of the key aspects of successfully exploiting insecure deserialization.
-
-Working with pre-built gadget chains
+````
+### Working with pre-built gadget chains
+````
 Manually identifying gadget chains can be a fairly arduous process, and is almost impossible without source code access. Fortunately, there are a few options for working with pre-built gadget chains that you can try first.
 
 There are several tools available that can help you construct gadget chains with minimal effort. These tools provide a range of pre-discovered gadget chains that have been exploited on other websites. 
@@ -231,4 +232,52 @@ Most languages that frequently suffer from insecure deserialization vulnerabilit
 
 It is important to note that it is not the presence of a gadget chain in the website's code, or any of its libraries, that is responsible for the vulnerability. The vulnerability is the deserialization of user-controllable data - the gadget chain is just a means of manipulating the flow of this data once it has been injected. 
 This also applies to various memory corruption vulnerabilities that rely on deserialization of untrusted data. Therefore, websites may still be vulnerable even if they do somehow manage to plug every possible gadget chain.
+````
+### Creating your own exploit
+````
+When off-the-shelf gadget chains and documented exploits are unsuccessful, you will need to create your own exploit.
+
+To successfully build your own gadget chain, you will almost certainly need source code access. The first step is to study this source code to identify a class that contains a magic method that is invoked during deserialization. Assess the code that this magic method executes to see if it directly does anything dangerous with user-controllable attributes. This is always worth checking just in case.
+
+If the magic method is not exploitable on its own, it can serve as your "kick-off gadget" for a gadget chain. Study any methods that the kick-off gadget invokes. Do any of these do something dangerous with data that you control? If not, take a closer look at each of the methods that they subsequently invoke, and so on.
+
+Repeat this process, keeping track of which values you have access to, until you either reach a dead end or identify a dangerous sink gadget into which your controllable data is passed.
+
+Once you've worked out how to successfully construct a gadget chain within the application code, the next step is to create a serialized object containing your payload. This is simply a case of studying the class declaration in the source code and creating a valid serialized object with the appropriate values required for your exploit. As we have seen in previous labs, this is relatively simple when working with string-based serialization formats.
+
+Working with binary formats, such as when constructing a Java deserialization exploit, can be particularly cumbersome. When making minor changes to an existing object, you might be comfortable working directly with the bytes. However, when making more significant changes, such as passing in a completely new object, this quickly becomes impractical. It is often much simpler to write your own code in the target language in order to generate and serialize the data yourself.
+
+When creating your own gadget chain, look out for opportunities to use this extra attack surface to trigger secondary vulnerabilities.
+
+By carefully studying the source code, you can discover longer gadget chains that potentially allow you to construct high-severity attacks, often including remote code execution.
+````
+### PHAR deserialization
+````
+So far, we've looked primarily at exploiting deserialization vulnerabilities where the website explicitly deserializes user input. However, in PHP it is sometimes possible to exploit deserialization even if there is no obvious use of the unserialize() method.
+
+PHP provides several URL-style wrappers that you can use for handling different protocols when accessing file paths. One of these is the phar:// wrapper, which provides a stream interface for accessing PHP Archive (.phar) files.
+
+The PHP documentation reveals that PHAR manifest files contain serialized metadata. Crucially, if you perform any filesystem operations on a phar:// stream, this metadata is implicitly deserialized. This means that a phar:// stream can potentially be a vector for exploiting insecure deserialization, provided that you can pass this stream into a filesystem method.
+
+In the case of obviously dangerous filesystem methods, such as include() or fopen(), websites are likely to have implemented counter-measures to reduce the potential for them to be used maliciously. However, methods such as file_exists(), which are not so overtly dangerous, may not be as well protected.
+
+This technique also requires you to upload the PHAR to the server somehow. One approach is to use an image upload functionality, for example. If you are able to create a polyglot file, with a PHAR masquerading as a simple JPG, you can sometimes bypass the website's validation checks. If you can then force the website to load this polyglot "JPG" from a phar:// stream, any harmful data you inject via the PHAR metadata will be deserialized. As the file extension is not checked when PHP reads a stream, it does not matter that the file uses an image extension.
+
+As long as the class of the object is supported by the website, both the __wakeup() and __destruct() magic methods can be invoked in this way, allowing you to potentially kick off a gadget chain using this technique.
+````
+### Exploiting deserialization using memory corruption
+````
+Even without the use of gadget chains, it is still possible to exploit insecure deserialization. If all else fails, there are often publicly documented memory corruption vulnerabilities that can be exploited via insecure deserialization. These typically lead to remote code execution.
+
+Deserialization methods, such as PHP's unserialize() are rarely hardened against these kinds of attacks, and expose a huge amount of attack surface. This is not always considered a vulnerability in its own right because these methods are not intended to handle user-controllable input in the first place.
+````
+### How to prevent insecure deserialization vulnerabilities
+````
+Generally speaking, deserialization of user input should be avoided unless absolutely necessary. The high severity of exploits that it potentially enables, and the difficulty in protecting against them, outweigh the benefits in many cases.
+
+If you do need to deserialize data from untrusted sources, incorporate robust measures to make sure that the data has not been tampered with. For example, you could implement a digital signature to check the integrity of the data. However, remember that any checks must take place before beginning the deserialization process. Otherwise, they are of little use.
+
+If possible, you should avoid using generic deserialization features altogether. Serialized data from these methods contains all attributes of the original object, including private fields that potentially contain sensitive information. Instead, you could create your own class-specific serialization methods so that you can at least control which fields are exposed.
+
+Finally, remember that the vulnerability is the deserialization of user input, not the presence of gadget chains that subsequently handle the data. Don't rely on trying to eliminate gadget chains that you identify during testing. It is impractical to try and plug them all due to the web of cross-library dependencies that almost certainly exist on your website. At any given time, publicly documented memory corruption exploits are also a factor, meaning that your application may be vulnerable regardless
 ````
