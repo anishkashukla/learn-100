@@ -21,3 +21,4 @@ Attackers look for unprotected files, gains access to those unsecured files, gat
 ### Some good resources
  
  * [Medium Blog](https://medium.com/infosec/how-i-was-able-to-uniquely-bypass-authentication-while-web-pentesting-cd5d8d6a2837)
+ * [Medium Blog](https://medium.com/cyberverse/authentication-bypass-with-x-path-injection-and-sql-injection-cyberverse-c5d8dd34ac9a)
