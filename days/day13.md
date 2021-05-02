@@ -1,13 +1,18 @@
-### What is serialization?
-````
+# day13
+
+## What is serialization?
+
+```text
 Serialization is the process of converting complex data structures, such as objects and their fields, into a "flatter" format that can be sent and received as a sequential stream of bytes. Serializing data makes it much simpler to:
 
 Write complex data to inter-process memory, a file, or a database
 Send complex data, for example, over a network, between different components of an application, or in an API call
 Crucially, when serializing an object, its state is also persisted. In other words, the object's attributes are preserved, along with their assigned values.
-````
-### Serialization vs deserialization
-````
+```
+
+## Serialization vs deserialization
+
+```text
 Deserialization is the process of restoring this byte stream to a fully functional replica of the original object, in the exact state as when it was serialized. 
 The website's logic can then interact with this deserialized object, just like it would with any other object.
 Many programming languages offer native support for serialization. Exactly how objects are serialized depends on the language. 
@@ -16,9 +21,11 @@ Note that all of the original object's attributes are stored in the serialized d
 To prevent a field from being serialized, it must be explicitly marked as "transient" in the class declaration.
 
 Be aware that when working with different programming languages, serialization may be referred to as marshalling (Ruby) or pickling (Python). These terms are synonymous with "serialization" in this context.
-````
-### What is insecure deserialization?
-````
+```
+
+## What is insecure deserialization?
+
+```text
 Insecure deserialization is when user-controllable data is deserialized by a website. This potentially enables an attacker to manipulate serialized objects in order to pass harmful data into the application code.
 
 It is even possible to replace a serialized object with an object of an entirely different class. Alarmingly, objects of any class that is available to the website will be deserialized and instantiated, regardless of which class was expected. 
@@ -27,9 +34,11 @@ For this reason, insecure deserialization is sometimes known as an "object injec
 An object of an unexpected class might cause an exception. By this time, however, the damage may already be done. 
 Many deserialization-based attacks are completed before deserialization is finished. This means that the deserialization process itself can initiate an attack, even if the website's own functionality does not directly interact with the malicious object. 
 For this reason, websites whose logic is based on strongly typed languages can also be vulnerable to these techniques.
-````
-### How do insecure deserialization vulnerabilities arise ?
-````
+```
+
+## How do insecure deserialization vulnerabilities arise ?
+
+```text
 Insecure deserialization typically arises because there is a general lack of understanding of how dangerous deserializing user-controllable data can be. 
 Ideally, user input should never be deserialized at all.
 
@@ -48,24 +57,30 @@ This is especially true if an attacker is able to chain together a long series o
 It is, therefore, almost impossible to anticipate the flow of malicious data and plug every potential hole.
 
 In short, it can be argued that it is not possible to securely deserialize untrusted input.
-````
-### What is the impact of insecure deserialization?
-````
+```
+
+## What is the impact of insecure deserialization?
+
+```text
 The impact of insecure deserialization can be very severe because it provides an entry point to a massively increased attack surface. 
 It allows an attacker to reuse existing application code in harmful ways, resulting in numerous other vulnerabilities, often remote code execution.
 
 Even in cases where remote code execution is not possible, insecure deserialization can lead to privilege escalation, arbitrary file access, and denial-of-service attacks.
-````
-### Exploiting insecure deserialization vulnerabilities
+```
 
-### How to identify insecure deserialization
-````
+## Exploiting insecure deserialization vulnerabilities
+
+## How to identify insecure deserialization
+
+```text
 Identifying insecure deserialization is relatively simple regardless of whether you are whitebox or blackbox testing.
 
 During auditing, you should look at all data being passed into the website and try to identify anything that looks like serialized data. Serialized data can be identified relatively easily if you know the format that different languages use. In this section, we'll show examples from both PHP and Java serialization. Once you identify serialized data, you can test whether you are able to control it.
-````
-### PHP serialization format
-````
+```
+
+## PHP serialization format
+
+```text
 PHP uses a mostly human-readable string format, with letters representing the data type and numbers representing the length of each entry. For example, consider a User object with the attributes:
 
 $user->name = "carlos";
@@ -84,24 +99,30 @@ s:6:"carlos" - The value of the first attribute is the 6-character string "carlo
 s:10:"isLoggedIn" - The key of the second attribute is the 10-character string "isLoggedIn"
 b:1 - The value of the second attribute is the boolean value true
 The native methods for PHP serialization are serialize() and unserialize(). If you have source code access, you should start by looking for unserialize() anywhere in the code and investigating further.
-````
-### Java serialization format
-````
+```
+
+## Java serialization format
+
+```text
 Some languages, such as Java, use binary serialization formats. This is more difficult to read, but you can still identify serialized data if you know how to recognize a few tell-tale signs. For example, serialized Java objects always begin with the same bytes, which are encoded as ac ed in hexadecimal and rO0 in Base64.
 
 Any class that implements the interface java.io.Serializable can be serialized and deserialized. If you have source code access, take note of any code that uses the readObject() method, which is used to read and deserialize data from an InputStream.
-````
-### Manipulating serialized objects
-````
+```
+
+## Manipulating serialized objects
+
+```text
 Exploiting some deserialization vulnerabilities can be as easy as changing an attribute in a serialized object. As the object state is persisted, you can study the serialized data to identify and edit interesting attribute values. 
 You can then pass the malicious object into the website via its deserialization process. This is the initial step for a basic deserialization exploit.
 
 Broadly speaking, there are two approaches you can take when manipulating serialized objects. 
 You can either edit the object directly in its byte stream form, or you can write a short script in the corresponding language to create and serialize the new object yourself. 
 The latter approach is often easier when working with binary serialization formats.
-````
-### Modifying object attributes
-````
+```
+
+## Modifying object attributes
+
+```text
 When tampering with the data, as long as the attacker preserves a valid serialized object, the deserialization process will create a server-side object with the modified attribute values.
 
 As a simple example, consider a website that uses a serialized User object to store data about a user's session in a cookie. 
@@ -121,9 +142,11 @@ This vulnerable code would instantiate a User object based on the data from the 
 At no point is the authenticity of the serialized object checked. This data is then passed into the conditional statement and, in this case, would allow for an easy privilege escalation.
 
 This simple scenario is not common in the wild. However, editing an attribute value in this way demonstrates the first step towards accessing the massive amount of attack-surface exposed by insecure deserialization.
-````
-### Modifying data types
-````
+```
+
+## Modifying data types
+
+```text
 We've seen how you can modify attribute values in serialized objects, but it's also possible to supply unexpected data types.
 
 PHP-based logic is particularly vulnerable to this kind of manipulation due to the behavior of its loose comparison operator (==) when comparing different data types. 
@@ -152,9 +175,11 @@ Note that this is only possible because deserialization preserves the data type.
 Be aware that when modifying data types in any serialized object format, it is important to remember to update any type labels and length indicators in the serialized data too. Otherwise, the serialized object will be corrupted and will not be deserialized.
 
 When working directly with binary formats, we recommend using the Hackvertor extension, available from the BApp store. With Hackvertor, you can modify the serialized data as a string, and it will automatically update the binary data, adjusting the offsets accordingly. This can save you a lot of manual effort.
-````
-### Using application functionality
-````
+```
+
+## Using application functionality
+
+```text
 As well as simply checking attribute values, a website's functionality might also perform dangerous operations on data from a deserialized object. 
 In this case, you can use insecure deserialization to pass in unexpected data and leverage the related functionality to do damage.
 
@@ -163,9 +188,11 @@ If this $user was created from a serialized object, an attacker could exploit th
 
 This example relies on the attacker manually invoking the dangerous method via user-accessible functionality. 
 However, insecure deserialization becomes much more interesting when you create exploits that pass data into dangerous methods automatically. This is enabled by the use of "magic methods".
-````
-### Magic methods
-````
+```
+
+## Magic methods
+
+```text
 Magic methods are a special subset of methods that you do not have to explicitly invoke. Instead, they are invoked automatically whenever a particular event or scenario occurs. Magic methods are a common feature of object-oriented programming in various languages. They are sometimes indicated by prefixing or surrounding the method name with double-underscores.
 
 Developers can add magic methods to a class in order to predetermine what code should be executed when the corresponding event or scenario occurs. 
@@ -186,9 +213,11 @@ private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundE
 This allows the class to control the deserialization of its own fields more closely. Crucially, a readObject() method declared in exactly this way acts as a magic method that is invoked during deserialization.
 
 You should pay close attention to any classes that contain these types of magic methods. They allow you to pass data from a serialized object into the website's code before the object is fully deserialized. This is the starting point for creating more advanced exploits.`
-````
-### Injecting arbitrary objects
-````
+```
+
+## Injecting arbitrary objects
+
+```text
 As we've seen, it is occasionally possible to exploit insecure deserialization by simply editing the object supplied by the website. However, injecting arbitrary object types can open up many more possibilities.
 
 In object-oriented programming, the methods available to an object are determined by its class. 
@@ -202,9 +231,11 @@ If an attacker has access to the source code, they can study all of the availabl
 To construct a simple exploit, they would look for classes containing deserialization magic methods, then check whether any of them perform dangerous operations on controllable data. The attacker can then pass in a serialized object of this class to use its magic method for an exploit.
 
 Classes containing these deserialization magic methods can also be used to initiate more complex attacks involving a long series of method invocations, known as a "gadget chain".
-````
-### Gadget chains
-````
+```
+
+## Gadget chains
+
+```text
 A "gadget" is a snippet of code that exists in the application that can help an attacker to achieve a particular goal. 
 An individual gadget may not directly do anything harmful with user input. However, the attacker's goal might simply be to invoke a method that will pass their input into another gadget. 
 By chaining multiple gadgets together in this way, an attacker can potentially pass their input into a dangerous "sink gadget", where it can cause maximum damage.
@@ -216,9 +247,11 @@ This is typically done using a magic method that is invoked during deserializati
 In the wild, many insecure deserialization vulnerabilities will only be exploitable through the use of gadget chains. 
 This can sometimes be a simple one or two-step chain, but constructing high-severity attacks will likely require a more elaborate sequence of object instantiations and method invocations. 
 Therefore, being able to construct gadget chains is one of the key aspects of successfully exploiting insecure deserialization.
-````
-### Working with pre-built gadget chains
-````
+```
+
+## Working with pre-built gadget chains
+
+```text
 Manually identifying gadget chains can be a fairly arduous process, and is almost impossible without source code access. Fortunately, there are a few options for working with pre-built gadget chains that you can try first.
 
 There are several tools available that can help you construct gadget chains with minimal effort. These tools provide a range of pre-discovered gadget chains that have been exploited on other websites. 
@@ -232,9 +265,11 @@ Most languages that frequently suffer from insecure deserialization vulnerabilit
 
 It is important to note that it is not the presence of a gadget chain in the website's code, or any of its libraries, that is responsible for the vulnerability. The vulnerability is the deserialization of user-controllable data - the gadget chain is just a means of manipulating the flow of this data once it has been injected. 
 This also applies to various memory corruption vulnerabilities that rely on deserialization of untrusted data. Therefore, websites may still be vulnerable even if they do somehow manage to plug every possible gadget chain.
-````
-### Creating your own exploit
-````
+```
+
+## Creating your own exploit
+
+```text
 When off-the-shelf gadget chains and documented exploits are unsuccessful, you will need to create your own exploit.
 
 To successfully build your own gadget chain, you will almost certainly need source code access. 
@@ -257,9 +292,11 @@ However, when making more significant changes, such as passing in a completely n
 When creating your own gadget chain, look out for opportunities to use this extra attack surface to trigger secondary vulnerabilities.
 
 By carefully studying the source code, you can discover longer gadget chains that potentially allow you to construct high-severity attacks, often including remote code execution.
-````
-### PHAR deserialization
-````
+```
+
+## PHAR deserialization
+
+```text
 So far, we've looked primarily at exploiting deserialization vulnerabilities where the website explicitly deserializes user input. 
 However, in PHP it is sometimes possible to exploit deserialization even if there is no obvious use of the unserialize() method.
 
@@ -276,17 +313,21 @@ This technique also requires you to upload the PHAR to the server somehow. One a
 If you can then force the website to load this polyglot "JPG" from a phar:// stream, any harmful data you inject via the PHAR metadata will be deserialized. As the file extension is not checked when PHP reads a stream, it does not matter that the file uses an image extension.
 
 As long as the class of the object is supported by the website, both the __wakeup() and __destruct() magic methods can be invoked in this way, allowing you to potentially kick off a gadget chain using this technique.
-````
-### Exploiting deserialization using memory corruption
-````
+```
+
+## Exploiting deserialization using memory corruption
+
+```text
 Even without the use of gadget chains, it is still possible to exploit insecure deserialization. 
 If all else fails, there are often publicly documented memory corruption vulnerabilities that can be exploited via insecure deserialization. These typically lead to remote code execution.
 
 Deserialization methods, such as PHP's unserialize() are rarely hardened against these kinds of attacks, and expose a huge amount of attack surface. 
 This is not always considered a vulnerability in its own right because these methods are not intended to handle user-controllable input in the first place.
-````
-### How to prevent insecure deserialization vulnerabilities
-````
+```
+
+## How to prevent insecure deserialization vulnerabilities
+
+```text
 Generally speaking, deserialization of user input should be avoided unless absolutely necessary. The high severity of exploits that it potentially enables, and the difficulty in protecting against them, outweigh the benefits in many cases.
 
 If you do need to deserialize data from untrusted sources, incorporate robust measures to make sure that the data has not been tampered with. 
@@ -298,4 +339,5 @@ Instead, you could create your own class-specific serialization methods so that 
 Finally, remember that the vulnerability is the deserialization of user input, not the presence of gadget chains that subsequently handle the data. 
 Don't rely on trying to eliminate gadget chains that you identify during testing. It is impractical to try and plug them all due to the web of cross-library dependencies that almost certainly exist on your website. 
 At any given time, publicly documented memory corruption exploits are also a factor, meaning that your application may be vulnerable regardless
-````
+```
+

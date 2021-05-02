@@ -1,42 +1,43 @@
-Index | Technique
---- | ---
-**1** | What is Bug Bounty Hunting 
-**2** | How to start in Bug Bounty Hunting
-**3** | How to avoid Duplicates and submit a valid bug ?
-**4** | Resources 
-**5** | Other Resource
-**6** | Tips
+# day1
 
+| Index | Technique |
+| :--- | :--- |
+| **1** | What is Bug Bounty Hunting |
+| **2** | How to start in Bug Bounty Hunting |
+| **3** | How to avoid Duplicates and submit a valid bug ? |
+| **4** | Resources |
+| **5** | Other Resource |
+| **6** | Tips |
 
-### What is Bug Bounty Hunting ?
+## What is Bug Bounty Hunting ?
 
+### A bug bounty is a program offered to individuals who identify and report bugs back to companies, websites or developers. These programs reward individuals for finding vulnerabilities before they become security issues
 
-#### A bug bounty is a program offered to individuals who identify and report bugs back to companies, websites or developers. These programs reward individuals for finding vulnerabilities before they become security issues
+## How to start in Bug Bounty Hunting ?
 
-### How to start in Bug Bounty Hunting ?
+### There are a lot of resources available online that you can refer to in order to start with it. There are different courses that you can do as well.
 
+## How to avoid Duplicates and submit a valid bug ?
 
-#### There are a lot of resources available online that you can refer to in order to start with it. There are different courses that you can do as well.
-
-### How to avoid Duplicates and submit a valid bug ?
-````
+```text
 * Gather as much information as you can about the target
 * Try hunting on the subdomains rather than the main target or domain
 * Read the Program Details properly and understand which domains are in scope and which are not
 * Also properly read about what kinds of bugs you should focus on which will help you get the points or bounty
-````
+```
 
-### Resources 
+## Resources
 
-#### Books 
+### Books
 
-````
+```text
 * Web Application Hacker's Handbook
 * Web Hacking 101 
 * Mastering Modern Web Application 
-* Hacker's Playbook 
-````
-#### Youtube Channel 
+* Hacker's Playbook
+```
+
+### Youtube Channel
 
 * [Hackerone](https://www.youtube.com/channel/UCsgzmECky2Q9lQMWzDwMhYw)
 * [Bugcrowd](https://www.youtube.com/channel/UCo1NHk_bgbAbDBc4JinrXww)
@@ -60,22 +61,23 @@ Index | Technique
 * [RogueSMG](https://www.youtube.com/channel/UC855OCrjl7C3elK8VfEZoHw)
 * [zseano](https://www.youtube.com/channel/UCCUFgj-52_ryvpQUacylRpg)
 
+## Other Resources
 
-### Other Resources 
-
-````
+```text
 Hackerone Reports
 Bugcrowd Resources
 Portswigger Academy
 Intigriti Blogs
 PentesterLab
 Medium Blogs
-````
-### Tips 
+```
 
-````
+## Tips
+
+```text
 * Do not be afraid to make mistakes. Make mistakes, learn from them and be better.
 * In the starting you may find it difficult to find a valid bug but keep hunting and be consistent. 
 * Consitency is the key. 
-* Keep learning, Keep Hunting 
-````
+* Keep learning, Keep Hunting
+```
+
