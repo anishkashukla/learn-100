@@ -1,5 +1,8 @@
-### What are Business Logic Vulnerabilities ?
-````
+# day10
+
+## What are Business Logic Vulnerabilities ?
+
+```text
 Business logic vulnerabilities are flaws in the design and implementation of an application that allow an attacker to elicit unintended behavior. 
 This potentially enables attackers to manipulate legitimate functionality to achieve a malicious goal. 
 These flaws are generally the result of failing to anticipate unusual application states that may occur and, consequently, failing to handle them safely.
@@ -19,9 +22,11 @@ By passing unexpected values into server-side logic, an attacker can potentially
 Logic-based vulnerabilities can be extremely diverse and are often unique to the application and its specific functionality. 
 Identifying them often requires a certain amount of human knowledge, such as an understanding of the business domain or what goals an attacker might have in a given context. 
 This makes them difficult to detect using automated vulnerability scanners. As a result, logic flaws are a great target for bug bounty hunters and manual testers in general.
-````
-### How do business logic vulnerabilities arise ?
-````
+```
+
+## How do business logic vulnerabilities arise ?
+
+```text
 Business logic vulnerabilities often arise because the design and development teams make flawed assumptions about how users will interact with the application. 
 These bad assumptions can lead to inadequate validation of user input. 
 
@@ -35,9 +40,11 @@ To avoid logic flaws, developers need to understand the application as a whole.
 This includes being aware of how different functions can be combined in unexpected ways. Developers working on large code bases may not have an intimate understanding of how all areas of the application work. 
 Someone working on one component could make flawed assumptions about how another component works and, as a result, inadvertently introduce serious logic flaws. 
 If the developers do not explicitly document any assumptions that are being made, it is easy for these kinds of vulnerabilities to creep into an application.
-````
-### What is the impact of business logic vulnerabilities ?
-````
+```
+
+## What is the impact of business logic vulnerabilities ?
+
+```text
 The impact of business logic vulnerabilities can, at times, be fairly trivial. 
 It is a broad category and the impact is highly variable. 
 However, any unintended behavior can potentially lead to high-severity attacks if an attacker is able to manipulate the application in the right way. 
@@ -50,9 +57,11 @@ This also exposes an increased attack surface for other exploits.
 Flawed logic in financial transactions can obviously lead to massive losses for the business through stolen funds, fraud, and so on.
 
 You should also note that even though logic flaws may not allow an attacker to benefit directly, they could still allow a malicious party to damage the business in some way.
-````
-### How to prevent business logic vulnerabilities
-````
+```
+
+## How to prevent business logic vulnerabilities
+
+```text
 The keys to preventing business logic vulnerabilities are to:
 
 Make sure developers and testers understand the domain that the application serves
@@ -74,9 +83,11 @@ Due to the relatively unique nature of many logic flaws, it is easy to brush the
 However, as we've demonstrated, these flaws are often the result of bad practices in the initial phases of building the application. 
 Analyzing why a logic flaw existed in the first place, and how it was missed by the team, can help you to spot weaknesses in your processes. 
 By making minor adjustments, you can increase the likelihood that similar flaws will be cut off at the source or caught earlier in the development process.
-````
-### Examples of Business Logic Vulnerabilities 
-````
+```
+
+## Examples of Business Logic Vulnerabilities
+
+```text
 Business logic vulnerabilities are relatively specific to the context in which they occur. However, although individual instances of logic flaws differ hugely, they can share many common themes. 
 In particular, they can be loosely grouped based on the initial mistakes that introduced the vulnerability in the first place.
 
@@ -90,9 +101,11 @@ Failing to handle unconventional input
 Making flawed assumptions about user behavior
 Domain-specific flaws 
 Providing an encryption oracle
-````
-### Excessive trust in client-side controls
-````
+```
+
+## Excessive trust in client-side controls
+
+```text
 A fundamentally flawed assumption is that users will only interact with the application via the provided web interface. 
 This is especially dangerous because it leads to the further assumption that client-side validation will prevent users from supplying malicious input. 
 However, an attacker can simply use tools such as Burp Proxy to tamper with the data after it has been sent by the browser but before it is passed into the server-side logic. 
@@ -102,9 +115,11 @@ Accepting data at face value, without performing proper integrity checks and ser
 all kinds of damage with relatively minimal effort. 
 Exactly what they are able to achieve is dependent on the functionality and what it is doing with the controllable data. 
 In the right context, this kind of flaw can have devastating consequences for both business-related functionality and the security of the website itself.
-````
-### Failing to handle unconventional input 
-````
+```
+
+## Failing to handle unconventional input
+
+```text
 One aim of the application logic is to restrict user input to values that adhere to the business rules. 
 For example, the application may be designed to accept arbitrary values of a certain data type, but the logic determines whether or not this value is acceptable from the perspective of the business. Many applications incorporate numeric limits into their logic. 
 This might include limits designed to manage inventory, apply budgetary restrictions, trigger phases of the supply chain, and so on.
@@ -146,23 +161,29 @@ What happens when you reach those limits?
 Is any transformation or normalization being performed on your input?
 
 This may expose weak input validation that allows you to manipulate the application in unusual ways. Keep in mind that if you find one form on the target website that fails to safely handle unconventional input, it's likely that other forms will have the same issues.
-````
-### Making flawed assumptions about user behavior
-````
+```
+
+## Making flawed assumptions about user behavior
+
+```text
 One of the most common root causes of logic vulnerabilities is making flawed assumptions about user behavior. 
 This can lead to a wide range of issues where developers have not considered potentially dangerous scenarios that violate these assumptions. 
 In this section, we'll provide some cautionary examples of common assumptions that should be avoided and demonstrate how they can lead to dangerous logic flaws.
-````
-#### Trusted users won't always remain trustworthy
-````
+```
+
+### Trusted users won't always remain trustworthy
+
+```text
 Applications may appear to be secure because they implement seemingly robust measures to enforce the business rules. 
 Unfortunately, some applications make the mistake of assuming that, having passed these strict controls initially, the user and their data can be trusted indefinitely. 
 This can result in relatively lax enforcement of the same controls from that point on.
 
 If business rules and security measures are not applied consistently throughout the application, this can lead to potentially dangerous loopholes that may be exploited by an attacker.
-````
-### Users won't always supply mandatory input
-````
+```
+
+## Users won't always supply mandatory input
+
+```text
 One misconception is that users will always supply values for mandatory input fields. Browsers may prevent ordinary users from submitting a form without a required input, but as we know, attackers can tamper with parameters in transit. 
 This even extends to removing parameters entirely.
 
@@ -176,9 +197,11 @@ Only remove one parameter at a time to ensure all relevant code paths are reache
 Try deleting the name of the parameter as well as the value. The server will typically handle both cases differently.
 Follow multi-stage processes through to completion. Sometimes tampering with a parameter in one step will have an effect on another step further along in the workflow.
 This applies to both URL and POST parameters, but don't forget to check the cookies too. This simple process can reveal some bizarre application behavior that may be exploitable.
-````
-### Users won't always follow the intended sequence
-````
+```
+
+## Users won't always follow the intended sequence
+
+```text
 Many transactions rely on predefined workflows consisting of a sequence of steps. 
 The web interface will typically guide users through this process, taking them to the next step of the workflow each time they complete the current one. 
 However, attackers won't necessarily adhere to this intended sequence. 
@@ -199,9 +222,11 @@ As with all logic flaws, try to identify what assumptions the developers have ma
 Note that this kind of testing will often cause exceptions because expected variables have null or uninitialized values. 
 Arriving at a location in a partly defined or inconsistent state is also likely to cause the application to complain. In this case, be sure to pay close attention to any error messages or debug information that you encounter. 
 These can be a valuable source of information disclosure, which can help you fine-tune your attack and understand key details about the back-end behavior.
-````
-### Domain-specific flaws
-````
+```
+
+## Domain-specific flaws
+
+```text
 In many cases, you will encounter logic flaws that are specific to the business domain or the purpose of the site.
 
 The discounting functionality of online shops is a classic attack surface when hunting for logic flaws. 
@@ -222,9 +247,11 @@ Without this knowledge of the domain, you may dismiss dangerous behavior because
 For simplicity, the examples used in this topic are specific to a domain that all users will already be familiar with, namely an online shop. 
 However, whether you're bug bounty hunting, pentesting, or even just a developer trying to write more secure code, you may at some point encounter applications from less familiar domains. 
 In this case, you should read as much documentation as possible and, where available, talk to subject-matter experts from the domain to get their insight. This may sound like a lot of work, but the more obscure the domain is, the more likely other testers will have missed plenty of bugs.
-````
-### Providing an encryption oracle
-````
+```
+
+## Providing an encryption oracle
+
+```text
 Dangerous scenarios can occur when user-controllable input is encrypted and the resulting ciphertext is then made available to the user in some way. 
 This kind of input is sometimes known as an "encryption oracle". An attacker can use this input to encrypt arbitrary data using the correct algorithm and asymmetric key.
 
@@ -235,4 +262,5 @@ This issue can be compounded if there is another user-controllable input on the 
 This would enable the attacker to decrypt other data to identify the expected structure. This saves them some of the work involved in creating their malicious data but is not necessarily required to craft a successful exploit.
 
 The severity of an encryption oracle depends on what functionality also uses the same algorithm as the oracle.
-````
+```
+
