@@ -51,24 +51,39 @@ Generally speaking, constructing a basic web cache poisoning attack involves the
 ````
 #### Identify and evaluate unkeyed inputs
 ````
-Any web cache poisoning attack relies on manipulation of unkeyed inputs, such as headers. Web caches ignore unkeyed inputs when deciding whether to serve a cached response to the user. This behavior means that you can use them to inject your payload and elicit a "poisoned" response which, if cached, will be served to all users whose requests have the matching cache key. Therefore, the first step when constructing a web cache poisoning attack is identifying unkeyed inputs that are supported by the server.
+Any web cache poisoning attack relies on manipulation of unkeyed inputs, such as headers. Web caches ignore unkeyed inputs when deciding whether to serve a cached response to the user. 
+This behavior means that you can use them to inject your payload and elicit a "poisoned" response which, if cached, will be served to all users whose requests have the matching cache key. 
+Therefore, the first step when constructing a web cache poisoning attack is identifying unkeyed inputs that are supported by the server.
 
-You can identify unkeyed inputs manually by adding random inputs to requests and observing whether or not they have an effect on the response. This can be obvious, such as reflecting the input in the response directly, or triggering an entirely different response. However, sometimes the effects are more subtle and require a bit of detective work to figure out. You can use tools such as Burp Comparer to compare the response with and without the injected input, but this still involves a significant amount of manual effort.
+You can identify unkeyed inputs manually by adding random inputs to requests and observing whether or not they have an effect on the response. 
+This can be obvious, such as reflecting the input in the response directly, or triggering an entirely different response. 
+However, sometimes the effects are more subtle and require a bit of detective work to figure out. 
+You can use tools such as Burp Comparer to compare the response with and without the injected input, but this still involves a significant amount of manual effort.
 
 Param Miner
-Fortunately, you can automate the process of identifying unkeyed inputs by adding the Param Miner extension to Burp from the BApp store. To use Param Miner, you simply right-click on a request that you want to investigate and click "Guess headers". Param Miner then runs in the background, sending requests containing different inputs from its extensive, built-in list of headers. If a request containing one of its injected inputs has an effect on the response, Param Miner logs this in Burp, either in the "Issues" pane if you are using Burp Suite Professional, or in the "Output" tab of the extension ("Extender" > "Extensions" > "Param Miner" > "Output") if you are using Burp Suite Community Edition.
+
+Fortunately, you can automate the process of identifying unkeyed inputs by adding the Param Miner extension to Burp from the BApp store. 
+To use Param Miner, you simply right-click on a request that you want to investigate and click "Guess headers". 
+Param Miner then runs in the background, sending requests containing different inputs from its extensive, built-in list of headers. 
+If a request containing one of its injected inputs has an effect on the response, Param Miner logs this in Burp, either in the "Issues" pane if you are using Burp Suite Professional, or in the "Output" tab of the extension ("Extender" > "Extensions" > "Param Miner" > "Output") if you are using Burp Suite Community Edition.
 
 For example, in the following screenshot, Param Miner found an unkeyed header X-Forwarded-Host on the home page of the website:
 
-Caution: When testing for unkeyed inputs on a live website, there is a risk of inadvertently causing the cache to serve your generated responses to real users. Therefore, it is important to make sure that your requests all have a unique cache key so that they will only be served to you. To do this, you can manually add a cache buster (such as a unique parameter) to the request line each time you make a request. Alternatively, if you are using Param Miner, there are options for automatically adding a cache buster to every request.
+Caution: When testing for unkeyed inputs on a live website, there is a risk of inadvertently causing the cache to serve your generated responses to real users. 
+Therefore, it is important to make sure that your requests all have a unique cache key so that they will only be served to you. 
+To do this, you can manually add a cache buster (such as a unique parameter) to the request line each time you make a request. 
+Alternatively, if you are using Param Miner, there are options for automatically adding a cache buster to every request.
 ````
 #### Elicit a harmful response from the back-end server
 ````
-Once you have identified an unkeyed input, the next step is to evaluate exactly how the website processes it. Understanding this is essential to successfully eliciting a harmful response. If an input is reflected in the response from the server without being properly sanitized, or is used to dynamically generate other data, then this is a potential entry point for web cache poisoning.
+Once you have identified an unkeyed input, the next step is to evaluate exactly how the website processes it. Understanding this is essential to successfully eliciting a harmful response. 
+If an input is reflected in the response from the server without being properly sanitized, or is used to dynamically generate other data, then this is a potential entry point for web cache poisoning.
 ````
 #### Get the response cached
 ````
 Manipulating inputs to elicit a harmful response is half the battle, but it doesn't achieve much unless you can cause the response to be cached, which can sometimes be tricky.
 
-Whether or not a response gets cached can depend on all kinds of factors, such as the file extension, content type, route, status code, and response headers. You will probably need to devote some time to simply playing around with requests on different pages and studying how the cache behaves. Once you work out how to get a response cached that contains your malicious input, you are ready to deliver the exploit to potential victims.
+Whether or not a response gets cached can depend on all kinds of factors, such as the file extension, content type, route, status code, and response headers. 
+You will probably need to devote some time to simply playing around with requests on different pages and studying how the cache behaves. 
+Once you work out how to get a response cached that contains your malicious input, you are ready to deliver the exploit to potential victims.
 ````
