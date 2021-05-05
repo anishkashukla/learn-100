@@ -87,3 +87,81 @@ Whether or not a response gets cached can depend on all kinds of factors, such a
 You will probably need to devote some time to simply playing around with requests on different pages and studying how the cache behaves. 
 Once you work out how to get a response cached that contains your malicious input, you are ready to deliver the exploit to potential victims.
 ````
+### Exploiting web cache poisoning vulnerabilities
+````
+This basic process can be used to discover and exploit a variety of different web cache poisoning vulnerabilities.
+
+In some cases, web cache poisoning vulnerabilities arise due to general flaws in the design of caches. Other times, the way in which a cache is implemented by a specific website can introduce unexpected quirks that can be exploited.
+````
+### Exploiting cache design flaws
+````
+Websites are vulnerable to web cache poisoning if they handle unkeyed input in an unsafe way and allow the subsequent HTTP responses to be cached. This vulnerability can be used as a delivery method for a variety of different attacks.
+
+Using web cache poisoning to deliver an XSS attack
+Perhaps the simplest web cache poisoning vulnerability to exploit is when unkeyed input is reflected in a cacheable response without proper sanitization.
+
+For example, consider the following request and response:
+
+GET /en?region=uk HTTP/1.1
+Host: innocent-website.com
+X-Forwarded-Host: innocent-website.co.uk
+
+HTTP/1.1 200 OK
+Cache-Control: public
+<meta property="og:image" content="https://innocent-website.co.uk/cms/social.png" />
+
+Here, the value of the X-Forwarded-Host header is being used to dynamically generate an Open Graph image URL, which is then reflected in the response. Crucially for web cache poisoning, the X-Forwarded-Host header is often unkeyed. In this example, the cache can potentially be poisoned with a response containing a simple XSS payload:
+
+GET /en?region=uk HTTP/1.1
+Host: innocent-website.com
+X-Forwarded-Host: a."><script>alert(1)</script>"
+
+HTTP/1.1 200 OK
+Cache-Control: public
+<meta property="og:image" content="https://a."><script>alert(1)</script>"/cms/social.png" />
+
+If this response was cached, all users who accessed /en?region=uk would be served this XSS payload. This example simply causes an alert to appear in the victim's browser, but a real attack could potentially steal passwords and hijack user accounts.
+````
+### Using web cache poisoning to exploit unsafe handling of resource imports
+````
+Some websites use unkeyed headers to dynamically generate URLs for importing resources, such as externally hosted JavaScript files. In this case, if an attacker changes the value of the appropriate header to a domain that they control, they could potentially manipulate the URL to point to their own malicious JavaScript file instead.
+
+If the response containing this malicious URL is cached, the attacker's JavaScript file would be imported and executed in the browser session of any user whose request has a matching cache key.
+
+GET / HTTP/1.1
+Host: innocent-website.com
+X-Forwarded-Host: evil-user.net
+User-Agent: Mozilla/5.0 Firefox/57.0
+
+HTTP/1.1 200 OK
+<script src="https://evil-user.net/static/analytics.js"></script>
+````
+### Using web cache poisoning to exploit cookie-handling vulnerabilities
+````
+Cookies are often used to dynamically generate content in a response. A common example might be a cookie that indicates the user's preferred language, which is then used to load the corresponding version of the page:
+
+GET /blog/post.php?mobile=1 HTTP/1.1
+Host: innocent-website.com
+User-Agent: Mozilla/5.0 Firefox/57.0
+Cookie: language=pl;
+Connection: close
+
+In this example, the Polish version of a blog post is being requested. Notice that the information about which language version to serve is only contained in the Cookie header. Let's suppose that the cache key contains the request line and the Host header, but not the Cookie header. In this case, if the response to this request is cached, then all subsequent users who tried to access this blog post would receive the Polish version as well, regardless of which language they actually selected.
+
+This flawed handling of cookies by the cache can also be exploited using web cache poisoning techniques. In practice, however, this vector is relatively rare in comparison to header-based cache poisoning. When cookie-based cache poisoning vulnerabilities exist, they tend to be identified and resolved quickly because legitimate users have accidentally poisoned the cache.
+````
+### Using multiple headers to exploit web cache poisoning vulnerabilities
+````
+Some websites are vulnerable to simple web cache poisoning exploits, as demonstrated above. However, others require more sophisticated attacks and only become vulnerable when an attacker is able to craft a request that manipulates multiple unkeyed inputs.
+
+For example, let's say a website requires secure communication using HTTPS. To enforce this, if a request that uses another protocol is received, the website dynamically generates a redirect to itself that does use HTTPS:
+
+GET /random HTTP/1.1
+Host: innocent-site.com
+X-Forwarded-Proto: http
+
+HTTP/1.1 301 moved permanently
+Location: https://innocent-site.com/random
+
+By itself, this behavior isn't necessarily vulnerable. However, by combining this with what we learned earlier about vulnerabilities in dynamically generated URLs, an attacker could potentially exploit this behavior to generate a cacheable response that redirects users to a malicious URL.
+````
