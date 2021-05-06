@@ -196,15 +196,20 @@ This knowledge also enables far more subtle attacks. Rather than bombarding the 
 ````
 ### Vary header
 ````
-The rudimentary way that the Vary header is often used can also provide attackers with a helping hand. The Vary header specifies a list of additional headers that should be treated as part of the cache key even if they are normally unkeyed. It is commonly used to specify that the User-Agent header is keyed, for example, so that if the mobile version of a website is cached, this won't be served to non-mobile users by mistake.
+The rudimentary way that the Vary header is often used can also provide attackers with a helping hand. 
+The Vary header specifies a list of additional headers that should be treated as part of the cache key even if they are normally unkeyed. 
+It is commonly used to specify that the User-Agent header is keyed, for example, so that if the mobile version of a website is cached, this won't be served to non-mobile users by mistake.
 
-This information can also be used to construct a multi-step attack to target a specific subset of users. For example, if the attacker knows that the User-Agent header is part of the cache key, by first identifying the user agent of the intended victims, they could tailor the attack so that only users with that user agent are affected. Alternatively, they could work out which user agent was most commonly used to access the site, and tailor the attack to affect the maximum number of users that way.
+This information can also be used to construct a multi-step attack to target a specific subset of users. 
+For example, if the attacker knows that the User-Agent header is part of the cache key, by first identifying the user agent of the intended victims, they could tailor the attack so that only users with that user agent are affected. 
+Alternatively, they could work out which user agent was most commonly used to access the site, and tailor the attack to affect the maximum number of users that way.
 ````
 ### Using web cache poisoning to exploit DOM-based vulnerabilities
 ````
 If the website unsafely uses unkeyed headers to import files, this can potentially be exploited by an attacker to import a malicious file instead. However, this applies to more than just JavaScript files.
 
-Many websites use JavaScript to fetch and process additional data from the back-end. If a script handles data from the server in an unsafe way, this can potentially lead to all kinds of DOM-based vulnerabilities.
+Many websites use JavaScript to fetch and process additional data from the back-end. 
+If a script handles data from the server in an unsafe way, this can potentially lead to all kinds of DOM-based vulnerabilities.
 
 For example, an attacker could poison the cache with a response that imports a JSON file containing the following payload:
 
