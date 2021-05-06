@@ -175,3 +175,50 @@ Location: https://innocent-site.com/random
 
 By itself, this behavior isn't necessarily vulnerable. However, by combining this with what we learned earlier about vulnerabilities in dynamically generated URLs, an attacker could potentially exploit this behavior to generate a cacheable response that redirects users to a malicious URL.
 ````
+### Exploiting responses that expose too much information
+````
+Sometimes websites make themselves more vulnerable to web cache poisoning by giving away too much information about themselves and their behavior.
+````
+### Cache-control directives
+````
+One of the challenges when constructing a web cache poisoning attack is ensuring that the harmful response gets cached. This can involve a lot of manual trial and error to study how the cache behaves. However, sometimes responses explicitly reveal some of the information an attacker needs to successfully poison the cache.
+
+One such example is when responses contain information about how often the cache is purged or how old the currently cached response is:
+
+HTTP/1.1 200 OK
+Via: 1.1 varnish-v4
+Age: 174
+Cache-Control: public, max-age=1800
+
+Although this doesn't directly lead to web cache poisoning vulnerabilities, it does save a potential attacker some of the manual effort involved because they know exactly when to send their payload to ensure it gets cached.
+
+This knowledge also enables far more subtle attacks. Rather than bombarding the back-end server with requests until one sticks, which could raise suspicions, the attacker can carefully time a single malicious request to poison the cache.
+````
+### Vary header
+````
+The rudimentary way that the Vary header is often used can also provide attackers with a helping hand. The Vary header specifies a list of additional headers that should be treated as part of the cache key even if they are normally unkeyed. It is commonly used to specify that the User-Agent header is keyed, for example, so that if the mobile version of a website is cached, this won't be served to non-mobile users by mistake.
+
+This information can also be used to construct a multi-step attack to target a specific subset of users. For example, if the attacker knows that the User-Agent header is part of the cache key, by first identifying the user agent of the intended victims, they could tailor the attack so that only users with that user agent are affected. Alternatively, they could work out which user agent was most commonly used to access the site, and tailor the attack to affect the maximum number of users that way.
+````
+### Using web cache poisoning to exploit DOM-based vulnerabilities
+````
+If the website unsafely uses unkeyed headers to import files, this can potentially be exploited by an attacker to import a malicious file instead. However, this applies to more than just JavaScript files.
+
+Many websites use JavaScript to fetch and process additional data from the back-end. If a script handles data from the server in an unsafe way, this can potentially lead to all kinds of DOM-based vulnerabilities.
+
+For example, an attacker could poison the cache with a response that imports a JSON file containing the following payload:
+
+{"someProperty" : "<svg onload=alert(1)>"}
+
+If the website then passes the value of this property into a sink that supports dynamic code execution, the payload would be executed in the context of the victim's browser session.
+
+If you use web cache poisoning to make a website load malicious JSON data from your server, you may need to grant the website access to the JSON using CORS:
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Access-Control-Allow-Origin: *
+
+{
+    "malicious json" : "malicious json"
+}
+````
