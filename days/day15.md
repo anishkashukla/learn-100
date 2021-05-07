@@ -227,3 +227,21 @@ Access-Control-Allow-Origin: *
     "malicious json" : "malicious json"
 }
 ````
+### Exploiting cache implementation flaws
+````
+In this, we'll see how you can access a much greater attack surface for web cache poisoning by exploiting quirks in specific implementations of caching systems. In particular, we'll look at why flaws in how cache keys are generated can sometimes leave websites vulnerable to cache poisoning via separate vulnerabilities that are traditionally considered unexploitable. We'll also show how you can take classic techniques even further to potentially poison application-level caches, often with devastating results.
+````
+### Cache key flaws
+````
+Generally speaking, websites take most of their input from the URL path and the query string. As a result, this is a well-trodden attack surface for various hacking techniques. However, as the request line is usually part of the cache key, these inputs have traditionally not been considered suitable for cache poisoning. Any payload injected via keyed inputs would act as a cache buster, meaning your poisoned cache entry would almost certainly never be served to any other users.
+
+On closer inspection, however, the behavior of individual caching systems is not always as you would expect. In practice, many websites and CDNs perform various transformations on keyed components when they are saved in the cache key. This can include:
+
+    * Excluding the query string
+    * Filtering out specific query parameters
+    * Normalizing input in keyed components
+    
+These transformations may introduce a few unexpected quirks. These are primarily based around discrepancies between the data that is written to the cache key and the data that is passed into the application code, even though it all stems from the same input. These cache key flaws can be exploited to poison the cache via inputs that may initially appear unusable.
+
+In the case of fully integrated, application-level caches, these quirks can be even more extreme. In fact, internal caches can be so unpredictable that it is sometimes difficult to test them at all without inadvertently poisoning the cache for live users.
+````
