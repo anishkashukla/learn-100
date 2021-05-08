@@ -252,3 +252,81 @@ These cache key flaws can be exploited to poison the cache via inputs that may i
 In the case of fully integrated, application-level caches, these quirks can be even more extreme. 
 In fact, internal caches can be so unpredictable that it is sometimes difficult to test them at all without inadvertently poisoning the cache for live users.
 ````
+### Cache probing methodology
+````
+The methodology of probing for cache implementation flaws differs slightly from the classic web cache poisoning methodology. These newer techniques rely on flaws in the specific implementation and configuration of the cache, which may vary dramatically from site to site. This means that you need a deeper understanding of the target cache and its behavior.
+
+The methodology involves the following steps:
+
+    Identify a suitable cache oracle
+    Probe key handling
+    Identify an exploitable gadget
+````    
+### Identify a suitable cache oracle
+````
+The first step is to identify a suitable "cache oracle" that you can use for testing. A cache oracle is simply a page or endpoint that provides feedback about the cache's behavior. This needs to be cacheable and must indicate in some way whether you received a cached response or a response directly from the server. This feedback could take various forms, such as:
+
+    * An HTTP header that explicitly tells you whether you got a cache hit
+    * Observable changes to dynamic content
+    * Distinct response times
+
+Ideally, the cache oracle will also reflect the entire URL and at least one query parameter in the response. This will make it easier to notice parsing discrepancies between the cache and the application, which will be useful for constructing different exploits later.
+
+If you can identify that a specific third-party cache is being used, you can also consult the corresponding documentation. This may contain information about how the default cache key is constructed. You might even stumble across some handy tips and tricks, such as features that allow you to see the cache key directly. For example, Akamai-based websites may support the header Pragma: akamai-x-get-cache-key, which you can use to display the cache key in the response headers:
+
+GET /?param=1 HTTP/1.1
+Host: innocent-website.com
+Pragma: akamai-x-get-cache-key
+
+HTTP/1.1 200 OK
+X-Cache-Key: innocent-website.com/?param=1
+````
+### Probe key handling
+````
+Now let's investigate whether the cache performs any additional processing of your input when generating the cache key. You are looking for an additional attack surface hidden within seemingly keyed components.
+
+You should specifically look at any transformation that is taking place. Is anything being excluded from a keyed component when it is added to the cache key? Common examples are excluding specific query parameters, or even the entire query string, and removing the port from the Host header.
+
+If you're fortunate enough to have direct access to the cache key, you can simply compare the key after injecting different inputs. Otherwise, you can use your understanding of the cache oracle to infer whether you received the correct cached response. For each case that you want to test, you send two similar requests and compare the responses.
+
+Let's say that our hypothetical cache oracle is the target website's home page. This automatically redirects users to a region-specific page. It uses the Host header to dynamically generate the Location header in the response:
+
+GET / HTTP/1.1
+Host: vulnerable-website.com
+
+HTTP/1.1 302 Moved Permanently
+Location: https://vulnerable-website.com/en
+Cache-Status: miss
+
+To test whether the port is excluded from the cache key, we first need to request an arbitrary port and make sure that we receive a fresh response from the server that reflects this input:
+
+GET / HTTP/1.1
+Host: vulnerable-website.com:1337
+
+HTTP/1.1 302 Moved Permanently
+Location: https://vulnerable-website.com:1337/en
+Cache-Status: miss
+
+Next, we'll send another request, but this time we won't specify a port:
+
+GET / HTTP/1.1
+Host: vulnerable-website.com
+
+HTTP/1.1 302 Moved Permanently
+Location: https://vulnerable-website.com:1337/en
+Cache-Status: hit
+
+As you can see, we have been served our cached response even though the Host header in the request does not specify a port. This proves that the port is being excluded from the cache key. Importantly, the full header is still passed into the application code and reflected in the response.
+
+In short, although the Host header is keyed, the way it is transformed by the cache allows us to pass a payload into the application while still preserving a "normal" cache key that will be mapped to other users' requests. This kind of behavior is the key concept behind all of the exploits that we'll discuss in this section.
+
+You can use a similar approach to investigate any other processing of your input by the cache. Is your input being normalized in any way? How is your input stored? Do you notice any anomalies? We'll cover how to answer these questions later using concrete examples.
+````
+### Identify an exploitable gadget
+````
+By now, you should have a relatively solid understanding of how the target website's cache behaves and might have found some interesting flaws in the way the cache key is constructed. The final step is to identify a suitable gadget that you can chain with this cache key flaw. This is an important skill because the severity of any web cache poisoning attack is heavily dependent on the gadget you are able to exploit.
+
+These gadgets will often be classic client-side vulnerabilities, such as reflected XSS and open redirects. By combining these with web cache poisoning, you can massively escalate the severity of these attacks, turning a reflected vulnerability into a stored one. Instead of having to induce a victim to visit a specially crafted URL, your payload will automatically be served to anybody who visits the ordinary, perfectly legitimate URL.
+
+Perhaps even more interestingly, these techniques enable you to exploit a number of unclassified vulnerabilities that are often dismissed as "unexploitable" and left unpatched. This includes the use of dynamic content in resource files, and exploits requiring malformed requests that a browser would never send.
+````
