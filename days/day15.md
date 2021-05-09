@@ -349,3 +349,49 @@ Instead of having to induce a victim to visit a specially crafted URL, your payl
 Perhaps even more interestingly, these techniques enable you to exploit a number of unclassified vulnerabilities that are often dismissed as "unexploitable" and left unpatched. 
 This includes the use of dynamic content in resource files, and exploits requiring malformed requests that a browser would never send.
 ````
+### Exploiting cache key flaws
+````
+    * Unkeyed port
+    * Unkeyed query string 
+    * Unkeyed query parameters 
+    * Cache parameter cloaking 
+    * Normalized cache keys 
+    * Cache key injection 
+    * Internal cache poisoning 
+````
+### Unkeyed port
+````
+The Host header is often part of the cache key and, as such, initially seems an unlikely candidate for injecting any kind of payload. However, some caching systems will parse the header and exclude the port from the cache key.
+
+In this case, you can potentially use this header for web cache poisoning. For example, consider the case we saw earlier where a redirect URL was dynamically generated based on the Host header. This might enable you to construct a denial-of-service attack by simply adding an arbitrary port to the request. All users who browsed to the home page would be redirected to a dud port, effectively taking down the home page until the cache expired.
+
+This kind of attack can be escalated further if the website allows you to specify a non-numeric port. You could use this to inject an XSS payload, for example.
+````
+### Unkeyed query string
+````
+Like the Host header, the request line is typically keyed. However, one of the most common cache-key transformations is to exclude the entire query string.
+````
+### Detecting an unkeyed query string
+````
+If the response explicitly tells you whether you got a cache hit or not, this transformation is relatively simple to spot - but what if it doesn't? This has the side-effect of making dynamic pages appear as though they are fully static because it can be hard to know whether you are communicating with the cache or the server.
+
+To identify a dynamic page, you would normally observe how changing a parameter value has an effect on the response. But if the query string is unkeyed, most of the time you would still get a cache hit, and therefore an unchanged response, regardless of any parameters you add. Clearly, this also makes classic cache-buster query parameters redundant.
+
+Fortunately, there are alternative ways of adding a cache buster, such as adding it to a keyed header that doesn't interfere with the application's behavior. Some typical examples include:
+
+Accept-Encoding: gzip, deflate, cachebuster
+Accept: */*, text/cachebuster
+Cookie: cachebuster=1
+Origin: https://cachebuster.vulnerable-website.com
+
+If you use Param Miner, you can also select the options "Add static/dynamic cache buster" and "Include cache busters in headers". It will then automatically add a cache buster to commonly keyed headers in any requests that you send using Burp's manual testing tools.
+
+Another approach is to see whether there are any discrepancies between how the cache and the back-end normalize the path of the request. As the path is almost guaranteed to be keyed, you can sometimes exploit this to issue requests with different keys that still hit the same endpoint. For example, the following entries might all be cached separately but treated as equivalent to GET / on the back-end:
+
+Apache: GET //
+Nginx: GET /%2F
+PHP: GET /index.php/xyz
+.NET GET /(A(xyz)/
+
+This transformation can sometimes mask what would otherwise be glaringly obvious reflected XSS vulnerabilities. If penetration testers or automated scanners only receive cached responses without realizing, it can appear as though there is no reflected XSS on the page.
+````
