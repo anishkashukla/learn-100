@@ -407,3 +407,72 @@ PHP: GET /index.php/xyz
 This transformation can sometimes mask what would otherwise be glaringly obvious reflected XSS vulnerabilities. 
 If penetration testers or automated scanners only receive cached responses without realizing, it can appear as though there is no reflected XSS on the page.
 ````
+### Exploiting an unkeyed query string
+````
+Excluding the query string from the cache key can actually make these reflected XSS vulnerabilities even more severe.
+
+Usually, such an attack would rely on inducing the victim to visit a maliciously crafted URL. 
+However, poisoning the cache via an unkeyed query string would cause the payload to be served to users who visit what would otherwise be a perfectly normal URL. 
+This has the potential to impact a far greater number of victims with no further interaction from the attacker.
+````
+### Unkeyed query parameters
+````
+So far we've seen that on some websites, the entire query string is excluded from the cache key. 
+But some websites only exclude specific query parameters that are not relevant to the back-end application, such as parameters for analytics or serving targeted advertisements. UTM parameters like utm_content are good candidates to check during testing.
+
+Parameters that have been excluded from the cache key are unlikely to have a significant impact on the response. 
+The chances are there won't be any useful gadgets that accept input from these parameters. That said, some pages handle the entire URL in a vulnerable manner, making it possible to exploit arbitrary parameters.
+````
+### Cache parameter cloaking
+````
+If the cache excludes a harmless parameter from the cache key, and you can't find any exploitable gadgets based on the full URL, you'd be forgiven for thinking that you've reached a dead end. 
+However, this is actually where things can get interesting.
+
+If you can work out how the cache parses the URL to identify and remove the unwanted parameters, you might find some interesting quirks. 
+Of particular interest are any parsing discrepancies between the cache and the application. This can potentially allow you to sneak arbitrary parameters into the application logic by "cloaking" them in an excluded parameter.
+
+For example, the de facto standard is that a parameter will either be preceded by a question mark (?), if it's the first one in the query string, or an ampersand (&). 
+Some poorly written parsing algorithms will treat any ? as the start of a new parameter, regardless of whether it's the first one or not.
+
+Let's assume that the algorithm for excluding parameters from the cache key behaves in this way, but the server's algorithm only accepts the first ? as a delimiter. 
+Consider the following request:
+
+GET /?example=123?excluded_param=bad-stuff-here
+
+In this case, the cache would identify two parameters and exclude the second one from the cache key. 
+However, the server doesn't accept the second ? as a delimiter and instead only sees one parameter, example, whose value is the entire rest of the query string, including our payload. 
+If the value of example is passed into a useful gadget, we have successfully injected our payload without affecting the cache key.
+````
+### Exploiting parameter parsing quirks
+````
+Similar parameter cloaking issues can arise in the opposite scenario, where the back-end identifies distinct parameters that the cache does not. 
+The Ruby on Rails framework, for example, interprets both ampersands (&) and semicolons (;) as delimiters. 
+When used in conjunction with a cache that does not allow this, you can potentially exploit another quirk to override the value of a keyed parameter in the application logic.
+
+Consider the following request:
+
+GET /?keyed_param=abc&excluded_param=123;keyed_param=bad-stuff-here
+
+As the names suggest, keyed_param is included in the cache key, but excluded_param is not. Many caches will only interpret this as two parameters, delimited by the ampersand:
+
+    * keyed_param=abc
+    * excluded_param=123;keyed_param=bad-stuff-here
+
+Once the parsing algorithm removes the excluded_param, the cache key will only contain keyed_param=abc. 
+On the back-end, however, Ruby on Rails sees the semicolon and splits the query string into three separate parameters:
+
+    * keyed_param=abc
+    * excluded_param=123
+    * keyed_param=bad-stuff-here
+
+But now there is a duplicate keyed_param. This is where the second quirk comes into play. If there are duplicate parameters, each with different values, Ruby on Rails gives precedence to the final occurrence. 
+The end result is that the cache key contains an innocent, expected parameter value, allowing the cached response to be served as normal to other users. 
+On the back-end, however, the same parameter has a completely different value, which is our injected payload. It is this second value that will be passed into the gadget and reflected in the poisoned response.
+
+This exploit can be especially powerful if it gives you control over a function that will be executed. 
+For example, if a website is using JSONP to make a cross-domain request, this will often contain a callback parameter to execute a given function on the returned data:
+
+GET /jsonp?callback=innocentFunction
+
+In this case, you could use these techniques to override the expected callback function and execute arbitrary JavaScript instead.
+````
