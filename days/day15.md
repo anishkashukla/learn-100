@@ -478,7 +478,9 @@ In this case, you could use these techniques to override the expected callback f
 ````
 ### Exploiting fat GET support
 ````
-In select cases, the HTTP method may not be keyed. This might allow you to poison the cache with a POST request containing a malicious payload in the body. Your payload would then even be served in response to users' GET requests. Although this scenario is pretty rare, you can sometimes achieve a similar effect by simply adding a body to a GET request to create a "fat" GET request:
+In select cases, the HTTP method may not be keyed. This might allow you to poison the cache with a POST request containing a malicious payload in the body. 
+Your payload would then even be served in response to users' GET requests. 
+Although this scenario is pretty rare, you can sometimes achieve a similar effect by simply adding a body to a GET request to create a "fat" GET request:
 
 GET /?param=innocent HTTP/1.1
 …
@@ -486,7 +488,8 @@ param=bad-stuff-here
 
 In this case, the cache key would be based on the request line, but the server-side value of the parameter would be taken from the body.
 
-This is only possible if a website accepts GET requests that have a body, but there are potential workarounds. You can sometimes encourage "fat GET" handling by overriding the HTTP method, for example:
+This is only possible if a website accepts GET requests that have a body, but there are potential workarounds. 
+You can sometimes encourage "fat GET" handling by overriding the HTTP method, for example:
 
 GET /?param=innocent HTTP/1.1
 Host: innocent-website.com
@@ -510,7 +513,9 @@ HTTP/1.1 200 OK
 
 You could exploit this behavior to inject malicious CSS that exfiltrates sensitive information from any pages that import /style.css.
 
-If the page importing the CSS file doesn't specify a doctype, you can maybe even exploit static CSS files. Given the right configuration, browsers will simply scour the document looking for CSS and then execute it. This means that you can occasionally poison static CSS files by triggering a server error that reflects the excluded query parameter:
+If the page importing the CSS file doesn't specify a doctype, you can maybe even exploit static CSS files. 
+Given the right configuration, browsers will simply scour the document looking for CSS and then execute it. 
+This means that you can occasionally poison static CSS files by triggering a server error that reflects the excluded query parameter:
 
 GET /style.css?excluded_param=alert(1)%0A{}*{color:red;} HTTP/1.1
 
@@ -523,14 +528,17 @@ This request was blocked due to…alert(1){}*{color:red;}
 ````
 Any normalization applied to the cache key can also introduce exploitable behavior. In fact, it can occasionally enable some exploits that would otherwise be almost impossible.
 
-For example, when you find reflected XSS in a parameter, it is often unexploitable in practice. This is because modern browsers typically URL-encode the necessary characters when sending the request, and the server doesn't decode them. The response that the intended victim receives will merely contain a harmless URL-encoded string.
+For example, when you find reflected XSS in a parameter, it is often unexploitable in practice. 
+This is because modern browsers typically URL-encode the necessary characters when sending the request, and the server doesn't decode them. 
+The response that the intended victim receives will merely contain a harmless URL-encoded string.
 
 Some caching implementations normalize keyed input when adding it to the cache key. In this case, both of the following requests would have the same key:
 
 GET /example?param="><test>
 GET /example?param=%22%3e%3ctest%3e
 
-This behavior can allow you to exploit these otherwise "unexploitable" XSS vulnerabilities. If you send a malicious request using Burp Repeater, you can poison the cache with an unencoded XSS payload. When the victim visits the malicious URL, the payload will still be URL-encoded by their browser; however, once the URL is normalized by the cache, it will have the same cache key as the response containing your unencoded payload.
+This behavior can allow you to exploit these otherwise "unexploitable" XSS vulnerabilities. If you send a malicious request using Burp Repeater, you can poison the cache with an unencoded XSS payload. 
+When the victim visits the malicious URL, the payload will still be URL-encoded by their browser; however, once the URL is normalized by the cache, it will have the same cache key as the response containing your unencoded payload.
 
 As a result, the cache will serve the poisoned response and the payload will be executed client-side. You just need to make sure that the cache is poisoned when the victim visits the URL.
 ````
@@ -540,7 +548,8 @@ Sometimes you may discover a client-side vulnerability in a keyed header. This i
 
 Keyed components are often bundled together in a string to create the cache key. If the cache doesn't implement proper escaping of the delimiters between the components, you can potentially exploit this behavior to craft two different requests that have the same cache key.
 
-The following example uses double-underscores to delimit different components in the cache key and does not escape them. You can exploit this by first poisoning the cache with a request containing your payload in the corresponding keyed header:
+The following example uses double-underscores to delimit different components in the cache key and does not escape them. 
+You can exploit this by first poisoning the cache with a request containing your payload in the corresponding keyed header:
 
 GET /path?param=123 HTTP/1.1
 Origin: '-alert(1)-'__
