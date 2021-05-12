@@ -569,3 +569,31 @@ X-Cache: hit
 
 <script>…'-alert(1)-'…</script>
 ````
+### Poisoning internal caches
+````
+So far, we've looked at how you can exploit flaws in the way external web caches are implemented to expose an extended attack surface hidden within seemingly keyed components. However, some websites implement caching behavior directly into the application in addition to using a distinct, external component. This can have several advantages, such as avoiding the kind of parsing discrepancies we looked at earlier.
+
+As these integrated caches are purpose-built for the specific application, this also gives developers the freedom to tailor their behavior to a greater degree. As a result, these caches can sometimes behave in unusual ways that you wouldn't typically see from a more standardized, external cache that needs to be compatible with multiple applications. Sometimes, these strange behaviors can also provide an opportunity for some high-severity cache poisoning exploits.
+
+Instead of caching entire responses, some of these caches break the response down into reusable fragments and cache them each separately. For example, a snippet for importing a widely used resource might be stored as a standalone cache entry. Users might then receive a response comprising a mixture of content from the server, as well as several individual fragments from the cache.
+
+As these cached fragments are intended to be reusable across multiple distinct responses, the concept of a cache key doesn't really apply. Every response that contains a given fragment will reuse the same cached fragment, even if the rest of the response is completely different. In a scenario like this, poisoning the cache can have wide-reaching effects, especially if you poison a fragment that is used on every page. As there is no cache key, you would have poisoned every page, for every user, with a single request.
+
+This will often only require you to use basic web cache poisoning techniques, such as manipulating the Host header.`
+````
+### How to identify internal caches
+````
+One of the challenges posed by integrated, application-level caches is that they can be difficult to identify and investigate because there is often no user-facing feedback. To identify these caches, you can look for a few tell-tale signs.
+
+For example, if the response reflects a mixture of both input from the last request you sent and input from a previous request, this is a key indicator that the cache is storing fragments rather than entire responses. The same applies if your input is reflected in responses on multiple distinct pages, in particular on pages in which you never tried to inject your input.
+
+Other times, the cache's behavior may simply be so unusual that the most logical conclusion is that it must be a unique and specialized internal cache.
+
+When a website implements multiple layers of caching, it can make it difficult to comprehend what is happening behind the scenes and understand how the website's caching system behaves
+````
+### Testing internal caches safely
+````
+When testing ordinary web caches, we recommend using a cache buster to prevent your poisoned response from being served to other users. However, if an integrated cache has no concept of cache keys, then traditional cache busters are useless. This means that it's very easy to accidentally poison the cache for genuine users.
+
+Therefore, it is important that you do your best to mitigate the potential damage when testing these kinds of vulnerabilities. Think carefully about the effect of your injected payload before sending each request. In particular, you should make sure that you only poison the cache using a domain that you control, rather than some arbitrary "evil-user.net". This way, you are in control of what happens next if something goes wrong.
+````
