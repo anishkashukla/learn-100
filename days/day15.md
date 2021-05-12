@@ -585,7 +585,8 @@ This will often only require you to use basic web cache poisoning techniques, su
 ````
 One of the challenges posed by integrated, application-level caches is that they can be difficult to identify and investigate because there is often no user-facing feedback. To identify these caches, you can look for a few tell-tale signs.
 
-For example, if the response reflects a mixture of both input from the last request you sent and input from a previous request, this is a key indicator that the cache is storing fragments rather than entire responses. The same applies if your input is reflected in responses on multiple distinct pages, in particular on pages in which you never tried to inject your input.
+For example, if the response reflects a mixture of both input from the last request you sent and input from a previous request, this is a key indicator that the cache is storing fragments rather than entire responses. 
+The same applies if your input is reflected in responses on multiple distinct pages, in particular on pages in which you never tried to inject your input.
 
 Other times, the cache's behavior may simply be so unusual that the most logical conclusion is that it must be a unique and specialized internal cache.
 
@@ -593,7 +594,10 @@ When a website implements multiple layers of caching, it can make it difficult t
 ````
 ### Testing internal caches safely
 ````
-When testing ordinary web caches, we recommend using a cache buster to prevent your poisoned response from being served to other users. However, if an integrated cache has no concept of cache keys, then traditional cache busters are useless. This means that it's very easy to accidentally poison the cache for genuine users.
+When testing ordinary web caches, we recommend using a cache buster to prevent your poisoned response from being served to other users. 
+However, if an integrated cache has no concept of cache keys, then traditional cache busters are useless. This means that it's very easy to accidentally poison the cache for genuine users.
 
-Therefore, it is important that you do your best to mitigate the potential damage when testing these kinds of vulnerabilities. Think carefully about the effect of your injected payload before sending each request. In particular, you should make sure that you only poison the cache using a domain that you control, rather than some arbitrary "evil-user.net". This way, you are in control of what happens next if something goes wrong.
+Therefore, it is important that you do your best to mitigate the potential damage when testing these kinds of vulnerabilities. 
+Think carefully about the effect of your injected payload before sending each request. In particular, you should make sure that you only poison the cache using a domain that you control, rather than some arbitrary "evil-user.net". 
+This way, you are in control of what happens next if something goes wrong.
 ````
