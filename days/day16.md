@@ -45,3 +45,10 @@ In some ways, this is similar to SQL injection vulnerabilities occurring in poor
 However, sometimes this behavior is actually implemented intentionally. For example, some websites deliberately allow certain privileged users, such as content editors, to edit or submit custom templates by design. 
 This clearly poses a huge security risk if an attacker is able to compromise an account with such privileges
 ````
+### Constructing a server-side template injection attack
+````
+Identifying server-side template injection vulnerabilities and crafting a successful attack typically involves the following high-level process.
+
+![SSTI](https://portswigger.net/web-security/images/ssti-methodology-diagram.png)
+
+````
