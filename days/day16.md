@@ -49,6 +49,6 @@ This clearly poses a huge security risk if an attacker is able to compromise an 
 ````
 Identifying server-side template injection vulnerabilities and crafting a successful attack typically involves the following high-level process.
 
-![SSTI](https://portswigger.net/web-security/images/ssti-methodology-diagram.png)
+<img src="https://portswigger.net/web-security/images/ssti-methodology-diagram.png"
 
 ````
