@@ -75,7 +75,7 @@ If the resulting output contains Hello 49, this shows that the mathematical oper
 
 Note that the specific syntax required to successfully evaluate the mathematical operation will vary depending on which template engine is being used. We'll discuss this in more detail in the Identify step.
 ````
-### Code context
+#### Code context
 ````
 In other cases, the vulnerability is exposed by user input being placed within a template expression, as we saw earlier with our email example. This may take the form of a user-controllable variable name being placed inside a parameter, such as:
 
