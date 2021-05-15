@@ -119,28 +119,37 @@ Otherwise, you'll need to manually test different language-specific payloads and
 
 ### Read
 ````
-Unless you already know the template engine inside out, reading its documentation is usually the first place to start. While this may not be the most exciting way to spend your time, it is important not to underestimate what a useful source of information the documentation can be.
+Unless you already know the template engine inside out, reading its documentation is usually the first place to start. 
+While this may not be the most exciting way to spend your time, it is important not to underestimate what a useful source of information the documentation can be.
 
 Learn the basic template syntax
-Learning the basic syntax is obviously important, along with key functions and handling of variables. Even something as simple as learning how to embed native code blocks in the template can sometimes quickly lead to an exploit. 
+Learning the basic syntax is obviously important, along with key functions and handling of variables. 
+Even something as simple as learning how to embed native code blocks in the template can sometimes quickly lead to an exploit. 
 ````
 ### Read about the security implications
 ````
-In addition to providing the fundamentals of how to create and use templates, the documentation may also provide some sort of "Security" section. The name of this section will vary, but it will usually outline all the potentially dangerous things that people should avoid doing with the template. This can be an invaluable resource, even acting as a kind of cheat sheet for which behaviors you should look for during auditing, as well as how to exploit them.
+In addition to providing the fundamentals of how to create and use templates, the documentation may also provide some sort of "Security" section. 
+The name of this section will vary, but it will usually outline all the potentially dangerous things that people should avoid doing with the template. 
+This can be an invaluable resource, even acting as a kind of cheat sheet for which behaviors you should look for during auditing, as well as how to exploit them.
 
-Even if there is no dedicated "Security" section, if a particular built-in object or function can pose a security risk, there is almost always a warning of some kind in the documentation. The warning may not provide much detail, but at the very least it should flag this particular built-in as something to investigate.
+Even if there is no dedicated "Security" section, if a particular built-in object or function can pose a security risk, there is almost always a warning of some kind in the documentation. 
+The warning may not provide much detail, but at the very least it should flag this particular built-in as something to investigate.
 ````
 ### Look for known exploits
 ````
-Another key aspect of exploiting server-side template injection vulnerabilities is being good at finding additional resources online. Once you are able to identify the template engine being used, you should browse the web for any vulnerabilities that others may have already discovered. Due to the widespread use of some of the major template engines, it is sometimes possible to find well-documented exploits that you might be able to tweak to exploit your own target website.
+Another key aspect of exploiting server-side template injection vulnerabilities is being good at finding additional resources online. 
+Once you are able to identify the template engine being used, you should browse the web for any vulnerabilities that others may have already discovered. 
+Due to the widespread use of some of the major template engines, it is sometimes possible to find well-documented exploits that you might be able to tweak to exploit your own target website.
 ````
 ### Explore
 ````
 At this point, you might have already stumbled across a workable exploit using the documentation. If not, the next step is to explore the environment and try to discover all the objects to which you have access.
 
-Many template engines expose a "self" or "environment" object of some kind, which acts like a namespace containing all objects, methods, and attributes that are supported by the template engine. If such an object exists, you can potentially use it to generate a list of objects that are in scope. For example, in Java-based templating languages, you can sometimes list all variables in the environment using the following injection:
+Many template engines expose a "self" or "environment" object of some kind, which acts like a namespace containing all objects, methods, and attributes that are supported by the template engine. 
+If such an object exists, you can potentially use it to generate a list of objects that are in scope.
 
 ${T(java.lang.System).getenv()}
 
-This can form the basis for creating a shortlist of potentially interesting objects and methods to investigate further. Additionally, for Burp Suite Professional users, the Intruder provides a built-in wordlist for brute-forcing variable names.
+This can form the basis for creating a shortlist of potentially interesting objects and methods to investigate further. 
+Additionally, for Burp Suite Professional users, the Intruder provides a built-in wordlist for brute-forcing variable names.
 ````
