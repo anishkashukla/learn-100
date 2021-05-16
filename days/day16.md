@@ -161,15 +161,20 @@ While server-side template injection can potentially lead to remote code executi
 ````
 ### Create a custom attack
 ````
-So far, we've looked primarily at constructing an attack either by reusing a documented exploit or by using well-known vulnerabilities in a template engine. However, sometimes you will need to construct a custom exploit. For example, you might find that the template engine executes templates inside a sandbox, which can make exploitation difficult, or even impossible.
+So far, we've looked primarily at constructing an attack either by reusing a documented exploit or by using well-known vulnerabilities in a template engine. 
+However, sometimes you will need to construct a custom exploit. 
+For example, you might find that the template engine executes templates inside a sandbox, which can make exploitation difficult, or even impossible.
 
-After identifying the attack surface, if there is no obvious way to exploit the vulnerability, you should proceed with traditional auditing techniques by reviewing each function for exploitable behavior. By working methodically through this process, you may sometimes be able to construct a complex attack that is even able to exploit more secure targets.
+After identifying the attack surface, if there is no obvious way to exploit the vulnerability, you should proceed with traditional auditing techniques by reviewing each function for exploitable behavior. 
+By working methodically through this process, you may sometimes be able to construct a complex attack that is even able to exploit more secure targets.
 ````
 ### Constructing a custom exploit using an object chain
 ````
-As described above, the first step is to identify objects and methods to which you have access. Some of the objects may immediately jump out as interesting. By combining your own knowledge and the information provided in the documentation, you should be able to put together a shortlist of objects that you want to investigate more thoroughly.
+As described above, the first step is to identify objects and methods to which you have access. Some of the objects may immediately jump out as interesting. 
+By combining your own knowledge and the information provided in the documentation, you should be able to put together a shortlist of objects that you want to investigate more thoroughly.
 
-When studying the documentation for objects, pay particular attention to which methods these objects grant access to, as well as which objects they return. By drilling down into the documentation, you can discover combinations of objects and methods that you can chain together. Chaining together the right objects and methods sometimes allows you to gain access to dangerous functionality and sensitive data that initially appears out of reach.
+When studying the documentation for objects, pay particular attention to which methods these objects grant access to, as well as which objects they return. 
+By drilling down into the documentation, you can discover combinations of objects and methods that you can chain together. Chaining together the right objects and methods sometimes allows you to gain access to dangerous functionality and sensitive data that initially appears out of reach.
 
 For example, in the Java-based template engine Velocity, you have access to a ClassTool object called $class. Studying the documentation reveals that you can chain the $class.inspect() method and $class.type property to obtain references to arbitrary objects. In the past, this has been exploited to execute shell commands on the target system as follows:
 
@@ -177,7 +182,9 @@ $class.inspect("java.lang.Runtime").type.getRuntime().exec("bad-stuff-here")
 ````
 ### Constructing a custom exploit using developer-supplied objects
 ````
-Some template engines run in a secure, locked-down environment by default in order to mitigate the associated risks as much as possible. Although this makes it difficult to exploit such templates for remote code execution, developer-created objects that are exposed to the template can offer a further, less battle-hardened attack surface.
+Some template engines run in a secure, locked-down environment by default in order to mitigate the associated risks as much as possible. 
+Although this makes it difficult to exploit such templates for remote code execution, developer-created objects that are exposed to the template can offer a further, less battle-hardened attack surface.
 
-However, while substantial documentation is usually provided for template built-ins, site-specific objects are almost certainly not documented at all. Therefore, working out how to exploit them will require you to investigate the website's behavior manually to identify the attack surface and construct your own custom exploit accordingly.
+However, while substantial documentation is usually provided for template built-ins, site-specific objects are almost certainly not documented at all. 
+Therefore, working out how to exploit them will require you to investigate the website's behavior manually to identify the attack surface and construct your own custom exploit accordingly.
 ````
