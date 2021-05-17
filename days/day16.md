@@ -190,11 +190,14 @@ Therefore, working out how to exploit them will require you to investigate the w
 ````
 ### How to prevent server-side template injection vulnerabilities
 ````
-The best way to prevent server-side template injection is to not allow any users to modify or submit new templates. However, this is sometimes unavoidable due to business requirements.
+The best way to prevent server-side template injection is to not allow any users to modify or submit new templates. 
+However, this is sometimes unavoidable due to business requirements.
 
-One of the simplest ways to avoid introducing server-side template injection vulnerabilities is to always use a "logic-less" template engine, such as Mustache, unless absolutely necessary. Separating the logic from presentation as much as possible can greatly reduce your exposure to the most dangerous template-based attacks.
+One of the simplest ways to avoid introducing server-side template injection vulnerabilities is to always use a "logic-less" template engine, such as Mustache, unless absolutely necessary. 
+Separating the logic from presentation as much as possible can greatly reduce your exposure to the most dangerous template-based attacks.
 
-Another measure is to only execute users' code in a sandboxed environment where potentially dangerous modules and functions have been removed altogether. Unfortunately, sandboxing untrusted code is inherently difficult and prone to bypasses.
+Another measure is to only execute users' code in a sandboxed environment where potentially dangerous modules and functions have been removed altogether. 
+Unfortunately, sandboxing untrusted code is inherently difficult and prone to bypasses.
 
 Finally, another complementary approach is to accept that arbitrary code execution is all but inevitable and apply your own sandboxing by deploying your template environment in a locked-down Docker container, for example
 ````
