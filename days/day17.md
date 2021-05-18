@@ -20,3 +20,28 @@ Messages can be sent in either direction at any time and are not transactional i
 
 WebSockets are particularly useful in situations where low-latency or server-initiated messages are required, such as real-time feeds of financial data.
 ````
+## How are WebSocket connections established ?
+````
+WebSocket connections are normally created using client-side JavaScript like the following:
+
+var ws = new WebSocket("wss://normal-website.com/chat");
+
+To establish the connection, the browser and server perform a WebSocket handshake over HTTP. The browser issues a WebSocket handshake request like the following:
+
+GET /chat HTTP/1.1
+Host: normal-website.com
+Sec-WebSocket-Version: 13
+Sec-WebSocket-Key: wDqumtseNBJdhkihL6PW7w==
+Connection: keep-alive, Upgrade
+Cookie: session=KOsEJNuflw4Rd9BDNrVmvwBF9rEijeE2
+Upgrade: websocket
+
+If the server accepts the connection, it returns a WebSocket handshake response like the following:
+
+HTTP/1.1 101 Switching Protocols
+Connection: Upgrade
+Upgrade: websocket
+Sec-WebSocket-Accept: 0FFP+2nmNIf/h+4BP36k9uzrYGk=
+
+At this point, the network connection remains open and can be used to send WebSocket messages in either direction.
+````
