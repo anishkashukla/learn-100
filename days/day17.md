@@ -45,3 +45,17 @@ Sec-WebSocket-Accept: 0FFP+2nmNIf/h+4BP36k9uzrYGk=
 
 At this point, the network connection remains open and can be used to send WebSocket messages in either direction.
 ````
+### What do WebSocket messages look like ?
+````
+Once a WebSocket connection has been established, messages can be sent asynchronously in either direction by the client or server.
+
+A simple message could be sent from the browser using client-side JavaScript like the following:
+
+ws.send("Peter Wiener");
+
+In principle, WebSocket messages can contain any content or data format. In modern applications, it is common for JSON to be used to send structured data within WebSocket messages.
+
+For example, a chat-bot application using WebSockets might send a message like the following:
+
+{"user":"Hal Pline","content":"I wanted to be a Playstation growing up, not a device to answer your inane questions"}
+````
