@@ -53,7 +53,8 @@ A simple message could be sent from the browser using client-side JavaScript lik
 
 ws.send("Peter Wiener");
 
-In principle, WebSocket messages can contain any content or data format. In modern applications, it is common for JSON to be used to send structured data within WebSocket messages.
+In principle, WebSocket messages can contain any content or data format. 
+In modern applications, it is common for JSON to be used to send structured data within WebSocket messages.
 
 For example, a chat-bot application using WebSockets might send a message like the following:
 
