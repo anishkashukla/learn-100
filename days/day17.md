@@ -60,3 +60,20 @@ For example, a chat-bot application using WebSockets might send a message like t
 
 {"user":"Hal Pline","content":"I wanted to be a Playstation growing up, not a device to answer your inane questions"}
 ````
+### Manipulating WebSocket traffic
+````
+Finding WebSockets security vulnerabilities generally involves manipulating them in ways that the application doesn't expect. You can do this using Burp Suite.
+
+You can use Burp Suite to:
+
+    Intercept and modify WebSocket messages.
+    Replay and generate new WebSocket messages.
+    Manipulate WebSocket connections.
+    Intercepting and modifying WebSocket messages
+You can use Burp Proxy to intercept and modify WebSocket messages, as follows:
+
+Configure your browser to use Burp Suite as its proxy server.
+Browse to the application function that uses WebSockets. You can determine that WebSockets are being used by using the application and looking for entries appearing in the WebSockets history tab within Burp Proxy.
+In the Intercept tab of Burp Proxy, ensure that interception is turned on.
+When a WebSocket message is sent from the browser or server, it will be displayed in the Intercept tab for you to view or modify. Press the Forward button to forward the message.
+````
