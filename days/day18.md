@@ -152,3 +152,50 @@ Then an attacker who finds an XSS vulnerability on subdomain.vulnerable-website.
 
 https://subdomain.vulnerable-website.com/?xss=<script>cors-stuff-here</script>
 ````
+### Breaking TLS with poorly configured CORS
+````
+Suppose an application that rigorously employs HTTPS also whitelists a trusted subdomain that is using plain HTTP. For example, when the application receives the following request:
+
+GET /api/requestApiKey HTTP/1.1
+Host: vulnerable-website.com
+Origin: http://trusted-subdomain.vulnerable-website.com
+Cookie: sessionid=...
+
+The application responds with:
+
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://trusted-subdomain.vulnerable-website.com
+Access-Control-Allow-Credentials: true
+
+In this situation, an attacker who is in a position to intercept a victim user's traffic can exploit the CORS configuration to compromise the victim's interaction with the application. This attack involves the following steps:
+
+The victim user makes any plain HTTP request.
+The attacker injects a redirection to: http://trusted-subdomain.vulnerable-website.com
+The victim's browser follows the redirect.
+The attacker intercepts the plain HTTP request, and returns a spoofed response containing a CORS request to: https://vulnerable-website.com
+The victim's browser makes the CORS request, including the origin: http://trusted-subdomain.vulnerable-website.com
+The application allows the request because this is a whitelisted origin. The requested sensitive data is returned in the response.
+The attacker's spoofed page can read the sensitive data and transmit it to any domain under the attacker's control.
+This attack is effective even if the vulnerable website is otherwise robust in its usage of HTTPS, with no HTTP endpoint and all cookies flagged as secure.
+````
+### Intranets and CORS without credentials
+````
+Most CORS attacks rely on the presence of the response header:
+
+Access-Control-Allow-Credentials: true
+
+Without that header, the victim user's browser will refuse to send their cookies, meaning the attacker will only gain access to unauthenticated content, which they could just as easily access by browsing directly to the target website.
+
+However, there is one common situation where an attacker can't access a website directly: when it's part of an organization's intranet, and located within private IP address space. Internal websites are often held to a lower security standard than external sites, enabling attackers to find vulnerabilities and gain further access. For example, a cross-domain request within a private network may be as follows:
+
+GET /reader?url=doc1.pdf
+Host: intranet.normal-website.com
+Origin: https://normal-website.com
+
+And the server responds with:
+
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: *
+
+The application server is trusting resource requests from any origin without credentials. If users within the private IP address space access the public internet then a CORS-based attack can be performed from the external site that uses the victim's browser as a proxy for accessing intranet resources.
+````
