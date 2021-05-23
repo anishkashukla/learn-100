@@ -154,7 +154,8 @@ https://subdomain.vulnerable-website.com/?xss=<script>cors-stuff-here</script>
 ````
 ### Breaking TLS with poorly configured CORS
 ````
-Suppose an application that rigorously employs HTTPS also whitelists a trusted subdomain that is using plain HTTP. For example, when the application receives the following request:
+Suppose an application that rigorously employs HTTPS also whitelists a trusted subdomain that is using plain HTTP. 
+For example, when the application receives the following request:
 
 GET /api/requestApiKey HTTP/1.1
 Host: vulnerable-website.com
@@ -186,7 +187,8 @@ Access-Control-Allow-Credentials: true
 
 Without that header, the victim user's browser will refuse to send their cookies, meaning the attacker will only gain access to unauthenticated content, which they could just as easily access by browsing directly to the target website.
 
-However, there is one common situation where an attacker can't access a website directly: when it's part of an organization's intranet, and located within private IP address space. Internal websites are often held to a lower security standard than external sites, enabling attackers to find vulnerabilities and gain further access. For example, a cross-domain request within a private network may be as follows:
+However, there is one common situation where an attacker can't access a website directly: when it's part of an organization's intranet, and located within private IP address space. Internal websites are often held to a lower security standard than external sites, enabling attackers to find vulnerabilities and gain further access. 
+For example, a cross-domain request within a private network may be as follows:
 
 GET /reader?url=doc1.pdf
 Host: intranet.normal-website.com
