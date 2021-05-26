@@ -83,6 +83,53 @@ A controlled relaxation of the same-origin policy is possible using cross-origin
 
 The cross-origin resource sharing protocol uses a suite of HTTP headers that define trusted web origins and associated properties such as whether authenticated access is permitted. These are combined in a header exchange between a browser and the cross-origin web site that it is trying to access.
 ````
+### CORS and the Access-Control-Allow-Origin response header
+````
+The cross-origin resource sharing specification provides controlled relaxation of the same-origin policy for HTTP requests to one website domain from another through the use of a collection of HTTP headers. Browsers permit access to responses to cross-origin requests based upon these header instructions.
+````
+### What is the Access-Control-Allow-Origin response header?
+````
+The Access-Control-Allow-Origin header is included in the response from one website to a request originating from another website, and identifies the permitted origin of the request. A web browser compares the Access-Control-Allow-Origin with the requesting website's origin and permits access to the response if they match.
+````
+### Implementing simple cross-origin resource sharing
+````
+The cross-origin resource sharing (CORS) specification prescribes header content exchanged between web servers and browsers that restricts origins for web resource requests outside of the origin domain. The CORS specification identifies a collection of protocol headers of which Access-Control-Allow-Origin is the most significant. This header is returned by a server when a website requests a cross-domain resource, with an Origin header added by the browser.
+
+For example, suppose a website with origin normal-website.com causes the following cross-domain request:
+
+GET /data HTTP/1.1
+Host: robust-website.com
+Origin : https://normal-website.com
+
+The server on robust-website.com returns the following response:
+
+HTTP/1.1 200 OK
+...
+Access-Control-Allow-Origin: https://normal-website.com
+
+The browser will allow code running on normal-website.com to access the response because the origins match.
+
+The specification of Access-Control-Allow-Origin allows for multiple origins, or the value null, or the wildcard *. However, no browser supports multiple origins and there are restrictions on the use of the wildcard *.
+````
+### Handling cross-origin resource requests with credentials
+````
+The default behavior of cross-origin resource requests is for requests to be passed without credentials like cookies and the Authorization header. However, the cross-domain server can permit reading of the response when credentials are passed to it by setting the CORS Access-Control-Allow-Credentials header to true. Now if the requesting website uses JavaScript to declare that it is sending cookies with the request:
+
+GET /data HTTP/1.1
+Host: robust-website.com
+...
+Origin: https://normal-website.com
+Cookie: JSESSIONID=<value>
+
+And the response to the request is:
+
+HTTP/1.1 200 OK
+...
+Access-Control-Allow-Origin: https://normal-website.com
+Access-Control-Allow-Credentials: true
+
+Then the browser will permit the requesting website to read the response, because the Access-Control-Allow-Credentials response header is set to true. Otherwise, the browser will not allow access to the response.
+````
 ### Vulnerabilities arising from CORS configuration issues
 ````
 Many modern websites use CORS to allow access from subdomains and trusted third parties. Their implementation of CORS may contain mistakes or be overly lenient to ensure that everything works, and this can result in exploitable vulnerabilities.`
