@@ -35,6 +35,7 @@ Taking from the list of Alexa’s Top 5,000 websites, the researchers identified
 While WCD is theoretically possible on all kinds of caching servers, all instances of vulnerable pages observed in the study are served over a CDN.
 
 “Today, web caches are considered essential Internet infrastructure,” Onarlioglu says. “In particular, CDN technologies (i.e., massively distributed networks of caching proxies) have become ubiquitous.
+
 “When this large potential attack surface is combined with the complexity of identifying and fixing vulnerabilities, site operators are facing a significant challenge in staying ahead of attackers.”
 
 Another notable finding is that, in some cases, site administrators configured their web caches to disregard caching directives response headers and store non-cacheable data.
