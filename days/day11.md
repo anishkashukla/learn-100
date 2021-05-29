@@ -83,6 +83,10 @@ Fuzzing
 Using Burp Scanner
 Using Burp's engagement tools
 Engineering informative responses
+
+We can also look for Information Disclosure Vulnerabilities using Google Dorks and GitHub Recon
+
+Recources for Google Dorks - https://www.exploit-db.com/google-hacking-database
 ```
 
 ## Fuzzing
