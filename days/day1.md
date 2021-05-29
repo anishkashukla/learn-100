@@ -24,6 +24,7 @@
 * Try hunting on the subdomains rather than the main target or domain
 * Read the Program Details properly and understand which domains are in scope and which are not
 * Also properly read about what kinds of bugs you should focus on which will help you get the points or bounty
+* Try to find bugs in parent company and subsidiary company of the domain
 ```
 
 ## Resources
@@ -60,6 +61,9 @@
 * [codingo](https://www.youtube.com/channel/UCUfO02gdMDXgOJWdv_jiLMg)
 * [RogueSMG](https://www.youtube.com/channel/UC855OCrjl7C3elK8VfEZoHw)
 * [zseano](https://www.youtube.com/channel/UCCUFgj-52_ryvpQUacylRpg)
+* [Busra Demir](https://www.youtube.com/channel/UCksdNO8hAiOQoWZhEXhyyZA)
+* [Cybernity](https://www.youtube.com/channel/UCBw5qqM8xdENgL6bpKHOmGQ)
+* [zSecurity](https://www.youtube.com/c/zsecurity)
 
 ## Other Resources
 
