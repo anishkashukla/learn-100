@@ -30,6 +30,12 @@ http://www.normal-website.com/example/	    No: different domain
 http://normal-website.com:8080/example/	    No: different port*
 *Internet Explorer will allow this access because IE does not take account of the port number when applying the same-origin policy.
 ````
+### Types of Same Origin Policy
+````
+1. Pre-domain Wildcard
+2. Sub-domain Wildcard
+3. Post-domain Wildcard
+````
 ### Why is the same-origin policy necessary ?
 ````
 When a browser sends an HTTP request from one origin to another, any cookies, including authentication session cookies, relevant to the other domain are also sent as part of the request. This means that the response will be generated within the user's session, and include any relevant data that is specific to the user. Without the same-origin policy, if you visited a malicious website, it would be able to read your emails from GMail, private messages from Facebook, etc.
