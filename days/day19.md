@@ -1,7 +1,46 @@
 ### Web cache deception
 
-### How does web cache deception work?
+### About caching
 ````
+Websites often use web cache functionality in order to reduce web server latency and to
+provide users with their requested content faster. 
+Instead of letting the web server deal with each request over and over, the caching mechanism stores those application files that are frequently retrieved.
+
+Files that are commonly cached are static, public files: style sheets (css), scripts (js), text files (txt), images (png, bmp, gif), and so on. 
+These files don't usually contain any sensitive information. As can be found in various best practices articles about web cache configuration, it's recommended to cache all static files that are meant to be public, and
+disregard their HTTP caching headers.
+
+There are several ways to implement caching. For example, caching is performed on
+browsers: the file is cached, and for a certain period of time, the browser won't ask the web server for the cached file again. This type of caching is NOT relevant for the web cache
+deception attack.
+
+Another way to implement caching, that is relevant for this attack, is over a server that
+stands between the client and the web server and functions as a caching mechanism. This
+type of mechanism can have various forms:
+
+    * CDN (Content Delivery Network) - A distributed network of proxies whose purpose is
+        to serve content quickly. The client will be served from a group of proxies, preferably the closest one to him.
+    * Load balancer - In addition to their job of balancing the traffic between more than
+        one server, load balancers can also cache content in order to reduce the servers' latency.
+    * Reverse proxy - A proxy server that retrieves resources from the web server on
+        behalf of the client, and can cache some of the application's content.
+````
+### Servers' reactions
+````
+The web cache deception attack counts on similar browsers' and web servers' reactions, in
+the same way as the RPO attack, explained in two blogs: The Spanner1 and XSS Jigsaw2
+.
+What happens when a user accesses a URL like
+http://www.example.com/home.php/nonexistent.css, where home.php is an actual page,
+and nonexistent.css doesn't exist?
+In this case, the browser sends a GET request to that URL. The interesting thing to look at is how the web server interprets this request. Depending on the server's technology and
+configuration, the web server might return a 200 OK response with the content of the
+home.php page, meaning the URL stays the same.
+The HTTP response headers will match the home.php page: same caching headers and same
+content type.
+````
+### How does web cache deception work?
+
 When your browser makes a request to a website, your connection usually goes through content delivery networks (CDN).
 
 CDNs have edge servers scattered across the world, which store cache local copies of web content to provide faster access to the users in their vicinities, while reducing the load on web servers.
