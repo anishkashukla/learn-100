@@ -40,7 +40,7 @@ The HTTP response headers will match the home.php page: same caching headers and
 content type.
 ````
 ### How does web cache deception work?
-
+````
 When your browser makes a request to a website, your connection usually goes through content delivery networks (CDN).
 
 CDNs have edge servers scattered across the world, which store cache local copies of web content to provide faster access to the users in their vicinities, while reducing the load on web servers.
