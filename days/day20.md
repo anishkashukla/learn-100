@@ -1,6 +1,8 @@
 ### What is directory traversal?
 ````
-Directory traversal (also known as file path traversal) is a web security vulnerability that allows an attacker to read arbitrary files on the server that is running an application. This might include application code and data, credentials for back-end systems,and sensitive operating system files. In some cases, an attacker might be able to write to arbitrary files on the server, allowing them to modify application data or behavior, and ultimately take full control of the server.
+Directory traversal (also known as file path traversal) is a web security vulnerability that allows an attacker to read arbitrary files on the server that is running an application. 
+This might include application code and data, credentials for back-end systems,and sensitive operating system files. 
+In some cases, an attacker might be able to write to arbitrary files on the server, allowing them to modify application data or behavior, and ultimately take full control of the server.
 ````
 ### Reading arbitrary files via directory traversal
 ````
@@ -8,7 +10,9 @@ Consider a shopping application that displays images of items for sale. Images a
 
 <img src="/loadImage?filename=218.png">
 
-The loadImage URL takes a filename parameter and returns the contents of the specified file. The image files themselves are stored on disk in the location /var/www/images/. To return an image, the application appends the requested filename to this base directory and uses a filesystem API to read the contents of the file. In the above case, the application reads from the following file path:
+The loadImage URL takes a filename parameter and returns the contents of the specified file. The image files themselves are stored on disk in the location /var/www/images/. 
+To return an image, the application appends the requested filename to this base directory and uses a filesystem API to read the contents of the file. 
+In the above case, the application reads from the following file path:
 
 /var/www/images/218.png
 
