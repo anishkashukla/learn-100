@@ -34,3 +34,23 @@ On Windows, both ../ and ..\ are valid directory traversal sequences, and an equ
 
 https://insecure-website.com/loadImage?filename=..\..\..\windows\win.ini
 ````
+### Common obstacles to exploiting file path traversal vulnerabilities
+````
+Many applications that place user input into file paths implement some kind of defense against path traversal attacks, and these can often be circumvented.
+
+If an application strips or blocks directory traversal sequences from the user-supplied filename, then it might be possible to bypass the defense using a variety of techniques.
+
+You might be able to use an absolute path from the filesystem root, such as filename=/etc/passwd, to directly reference a file without using any traversal sequences.
+
+You might be able to use nested traversal sequences, such as ....// or ....\/, which will revert to simple traversal sequences when the inner sequence is stripped.
+
+You might be able to use various non-standard encodings, such as ..%c0%af or ..%252f, to bypass the input filter.
+
+If an application requires that the user-supplied filename must start with the expected base folder, such as /var/www/images, then it might be possible to include the required base folder followed by suitable traversal sequences. For example:
+
+filename=/var/www/images/../../../etc/passwd
+
+If an application requires that the user-supplied filename must end with an expected file extension, such as .png, then it might be possible to use a null byte to effectively terminate the file path before the required extension. For example:
+
+filename=../../../etc/passwd%00.png
+````
