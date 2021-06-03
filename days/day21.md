@@ -7,7 +7,7 @@ Therefore, robust authentication mechanisms are an integral aspect of effective 
 
 There are three authentication factors into which different types of authentication can be categorized:
 
-    * Something you know, such as a password or the answer to a security question. 
+    * Something you know, such as a password or the answer to a security question.
       These are sometimes referred to as "knowledge factors".
     * Something you have, that is, a physical object like a mobile phone or security token.   These are sometimes referred to as "possession factors".
     * Something you are or do, for example, your biometrics or patterns of behavior. 
