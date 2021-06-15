@@ -7,7 +7,8 @@ Clickjacking is an interface-based attack in which a user is tricked into clicki
 A web user accesses a decoy website (perhaps this is a link provided by an email) and clicks on a button to win a prize. 
 Unknowingly, they have been deceived by an attacker into pressing an alternative hidden button and this results in the payment of an account on another site. 
 This is an example of a clickjacking attack. The technique depends upon the incorporation of an invisible, actionable web page (or multiple pages) containing a button or hidden link, say, within an iframe. 
-The iframe is overlaid on top of the user's anticipated decoy web page content. This attack differs from a CSRF attack in that the user is required to perform an action such as a button click whereas a CSRF attack depends upon forging an entire request without the user's knowledge or input.
+The iframe is overlaid on top of the user's anticipated decoy web page content. 
+This attack differs from a CSRF attack in that the user is required to perform an action such as a button click whereas a CSRF attack depends upon forging an entire request without the user's knowledge or input.
 Protection against CSRF attacks is often provided by the use of a CSRF token: a session-specific, single-use number or nonce.
 Clickjacking attacks are not mitigated by the CSRF token as a target session is established with content loaded from an authentic website and with all requests happening on-domain. 
 CSRF tokens are placed into requests and passed to the server as part of a normally behaved session. The difference compared to a normal user session is that the process occurs within a hidden iframe.
