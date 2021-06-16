@@ -52,7 +52,8 @@ The attacker selects opacity values so that the desired effect is achieved witho
 ### Clickjacking with prefilled form input
 ````
 Some websites that require form completion and submission permit prepopulation of form inputs using GET parameters prior to submission. 
-Other websites might require text before form submission. As GET values form part of the URL then the target URL can be modified to incorporate values of the attacker's choosing and the transparent "submit" button is overlaid on the decoy site as in the basic clickjacking example.
+Other websites might require text before form submission. 
+As GET values form part of the URL then the target URL can be modified to incorporate values of the attacker's choosing and the transparent "submit" button is overlaid on the decoy site as in the basic clickjacking example.
 ````
 ### Frame busting scripts
 ````
