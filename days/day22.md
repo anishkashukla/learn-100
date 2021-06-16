@@ -49,3 +49,25 @@ The z-index determines the stacking order of the iframe and website layers. The 
 Browser clickjacking protection might apply threshold-based iframe transparency detection (for example, Chrome version 76 includes this behavior but Firefox does not). 
 The attacker selects opacity values so that the desired effect is achieved without triggering protection behaviors.
 ````
+### Clickjacking with prefilled form input
+````
+Some websites that require form completion and submission permit prepopulation of form inputs using GET parameters prior to submission. 
+Other websites might require text before form submission. As GET values form part of the URL then the target URL can be modified to incorporate values of the attacker's choosing and the transparent "submit" button is overlaid on the decoy site as in the basic clickjacking example.
+````
+### Frame busting scripts
+````
+Clickjacking attacks are possible whenever websites can be framed. Therefore, preventative techniques are based upon restricting the framing capability for websites. 
+A common client-side protection enacted through the web browser is to use frame busting or frame breaking scripts. 
+These can be implemented via proprietary browser JavaScript add-ons or extensions such as NoScript. Scripts are often crafted so that they perform some or all of the following behaviors:
+
+check and enforce that the current application window is the main or top window,
+make all frames visible, prevent clicking on invisible frames, intercept and flag potential clickjacking attacks to the user.
+Frame busting techniques are often browser and platform specific and because of the flexibility of HTML they can usually be circumvented by attackers. 
+As frame busters are JavaScript then the browser's security settings may prevent their operation or indeed the browser might not even support JavaScript. 
+An effective attacker workaround against frame busters is to use the HTML5 iframe sandbox attribute. 
+When this is set with the allow-forms or allow-scripts values and the allow-top-navigation value is omitted then the frame buster script can be neutralized as the iframe cannot check whether or not it is the top window:
+
+<iframe id="victim_website" src="https://victim-website.com" sandbox="allow-forms"></iframe>
+
+Both the allow-forms and allow-scripts values permit the specified actions within the iframe but top-level navigation is disabled. This inhibits frame busting behaviors while allowing functionality within the targeted site.
+````
