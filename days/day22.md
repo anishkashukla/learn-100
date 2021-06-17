@@ -74,9 +74,14 @@ Both the allow-forms and allow-scripts values permit the specified actions withi
 ````
 ### Combining clickjacking with a DOM XSS attack
 ````
-We have looked at clickjacking as a self-contained attack. Historically, clickjacking has been used to perform behaviors such as boosting "likes" on a Facebook page. However, the true potency of clickjacking is revealed when it is used as a carrier for another attack such as a DOM XSS attack. Implementation of this combined attack is relatively straightforward assuming that the attacker has first identified the XSS exploit. The XSS exploit is then combined with the iframe target URL so that the user clicks on the button or link and consequently executes the DOM XSS attack.
+We have looked at clickjacking as a self-contained attack. Historically, clickjacking has been used to perform behaviors such as boosting "likes" on a Facebook page. 
+However, the true potency of clickjacking is revealed when it is used as a carrier for another attack such as a DOM XSS attack. 
+Implementation of this combined attack is relatively straightforward assuming that the attacker has first identified the XSS exploit. 
+The XSS exploit is then combined with the iframe target URL so that the user clicks on the button or link and consequently executes the DOM XSS attack.
 ````
 ### Multistep clickjacking
 ````
-Attacker manipulation of inputs to a target website may necessitate multiple actions. For example, an attacker might want to trick a user into buying something from a retail website so items need to be added to a shopping basket before the order is placed. These actions can be implemented by the attacker using multiple divisions or iframes. Such attacks require considerable precision and care from the attacker perspective if they are to be effective and stealthy.
+Attacker manipulation of inputs to a target website may necessitate multiple actions. For example, an attacker might want to trick a user into buying something from a retail website so items need to be added to a shopping basket before the order is placed. 
+These actions can be implemented by the attacker using multiple divisions or iframes. 
+Such attacks require considerable precision and care from the attacker perspective if they are to be effective and stealthy.
 ````
