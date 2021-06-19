@@ -128,3 +128,27 @@ Content-Security-Policy: frame-ancestors normal-website.com;
 
 To be effective against clickjacking and XSS, CSPs need careful development, implementation and testing and should be used as part of a multi-layer defense strategy.
 ````
+### What is CSP (content security policy) ?
+````
+CSP is a browser security mechanism that aims to mitigate XSS and some other attacks. It works by restricting the resources (such as scripts and images) that a page can load and restricting whether a page can be framed by other pages.
+
+To enable CSP, a response needs to include an HTTP response header called Content-Security-Policy with a value containing the policy. The policy itself consists of one or more directives, separated by semicolons.
+````
+### Protecting against clickjacking using CSP
+````
+The following directive will only allow the page to be framed by other pages from the same origin:
+
+frame-ancestors 'self'
+
+The following directive will prevent framing altogether:
+
+frame-ancestors 'none'
+
+Using content security policy to prevent clickjacking is more flexible than using the X-Frame-Options header because you can specify multiple domains and use wildcards. For example:
+
+frame-ancestors 'self' https://normal-website.com https://*.robust-website.com
+
+CSP also validates each frame in the parent frame hierarchy, whereas X-Frame-Options only validates the top-level frame.
+
+Using CSP to protect against clickjacking attacks is recommended. You can also combine this with the X-Frame-Options header to provide protection on older browsers that don't support CSP, such as Internet Explorer.
+````
