@@ -59,3 +59,38 @@ In the following XXE example, the external entity will cause the server to make 
 
 <!DOCTYPE foo [ <!ENTITY xxe SYSTEM "http://internal.vulnerable-website.com/"> ]>
 ````
+### Blind XXE vulnerabilities
+````
+Many instances of XXE vulnerabilities are blind. This means that the application does not return the values of any defined external entities in its responses, and so direct retrieval of server-side files is not possible.
+
+Blind XXE vulnerabilities can still be detected and exploited, but more advanced techniques are required. 
+You can sometimes use out-of-band techniques to find vulnerabilities and exploit them to exfiltrate data. And you can sometimes trigger XML parsing errors that lead to disclosure of sensitive data within error messages.
+````
+### Finding hidden attack surface for XXE injection
+````
+Attack surface for XXE injection vulnerabilities is obvious in many cases, because the application's normal HTTP traffic includes requests that contain data in XML format. 
+In other cases, the attack surface is less visible. 
+However, if you look in the right places, you will find XXE attack surface in requests that do not contain any XML.
+
+XInclude attacks
+Some applications receive client-submitted data, embed it on the server-side into an XML document, and then parse the document. 
+An example of this occurs when client-submitted data is placed into a back-end SOAP request, which is then processed by the backend SOAP service.
+
+In this situation, you cannot carry out a classic XXE attack, because you don't control the entire XML document and so cannot define or modify a DOCTYPE element. 
+However, you might be able to use XInclude instead. XInclude is a part of the XML specification that allows an XML document to be built from sub-documents. 
+You can place an XInclude attack within any data value in an XML document, so the attack can be performed in situations where you only control a single item of data that is placed into a server-side XML document.
+
+To perform an XInclude attack, you need to reference the XInclude namespace and provide the path to the file that you wish to include. For example:
+
+<foo xmlns:xi="http://www.w3.org/2001/XInclude">
+<xi:include parse="text" href="file:///etc/passwd"/></foo>
+````
+### XXE attacks via file upload
+````
+Some applications allow users to upload files which are then processed server-side. Some common file formats use XML or contain XML subcomponents. 
+Examples of XML-based formats are office document formats like DOCX and image formats like SVG.
+
+For example, an application might allow users to upload images, and process or validate these on the server after they are uploaded. 
+Even if the application expects to receive a format like PNG or JPEG, the image processing library that is being used might support SVG images. 
+Since the SVG format uses XML, an attacker can submit a malicious SVG image and so reach hidden attack surface for XXE vulnerabilities.
+````
