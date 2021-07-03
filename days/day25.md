@@ -6,3 +6,8 @@ It is typically exploited by spammers looking to leverage the vulnerable company
 
 This issue is particularly serious if the email contains sensitive information not intended for the attacker, such as a password reset token.
 ````
+### Remediation
+````
+Validate that user input conforms to a whitelist of safe characters before placing it into email headers. 
+In particular, input containing newlines and carriage returns should be rejected. Alternatively, consider switching to an email library that automatically prevents such attacks.
+````
