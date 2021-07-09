@@ -123,3 +123,22 @@ Here, an attacker might be unable to guess or predict the identifier for another
 In some cases, an application does detect when the user is not permitted to access the resource, and returns a redirect to the login page. 
 However, the response containing the redirect might still include some sensitive data belonging to the targeted user, so the attack is still successful.
 ````
+### Insecure direct object references
+````
+Insecure direct object references (IDOR) are a subcategory of access control vulnerabilities. IDOR arises when an application uses user-supplied input to access objects directly and an attacker can modify the input to obtain unauthorized access. 
+It was popularized by its appearance in the OWASP 2007 Top Ten although it is just one example of many implementation mistakes that can lead to access controls being circumvented.
+````
+### Access control vulnerabilities in multi-step processes
+````
+Many web sites implement important functions over a series of steps. This is often done when a variety of inputs or options need to be captured, or when the user needs to review and confirm details before the action is performed. 
+For example, administrative function to update user details might involve the following steps:
+
+1. Load form containing details for a specific user.
+2. Submit changes.
+3. Review the changes and confirm.
+
+Sometimes, a web site will implement rigorous access controls over some of these steps, but ignore others. 
+For example, suppose access controls are correctly applied to the first and second steps, but not to the third step. 
+Effectively, the web site assumes that a user will only reach step 3 if they have already completed the first steps, which are properly controlled. 
+Here, an attacker can gain unauthorized access to the function by skipping the first two steps and directly submitting the request for the third step with the required parameters.
+````
