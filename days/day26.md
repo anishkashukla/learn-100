@@ -142,3 +142,28 @@ For example, suppose access controls are correctly applied to the first and seco
 Effectively, the web site assumes that a user will only reach step 3 if they have already completed the first steps, which are properly controlled. 
 Here, an attacker can gain unauthorized access to the function by skipping the first two steps and directly submitting the request for the third step with the required parameters.
 ````
+### Referer-based access control
+````
+Some websites base access controls on the Referer header submitted in the HTTP request. The Referer header is generally added to requests by browsers to indicate the page from which a request was initiated.
+
+For example, suppose an application robustly enforces access control over the main administrative page at /admin, but for sub-pages such as /admin/deleteUser only inspects the Referer header. 
+If the Referer header contains the main /admin URL, then the request is allowed.
+
+In this situation, since the Referer header can be fully controlled by an attacker, they can forge direct requests to sensitive sub-pages, supplying the required Referer header, and so gain unauthorized access.
+````
+### Location-based access control
+````
+Some web sites enforce access controls over resources based on the user's geographical location. 
+This can apply, for example, to banking applications or media services where state legislation or business restrictions apply. 
+These access controls can often be circumvented by the use of web proxies, VPNs, or manipulation of client-side geolocation mechanisms.
+````
+### How to prevent access control vulnerabilities
+````
+Access control vulnerabilities can generally be prevented by taking a defense-in-depth approach and applying the following principles:
+
+* Never rely on obfuscation alone for access control.
+* Unless a resource is intended to be publicly accessible, deny access by default.
+* Wherever possible, use a single application-wide mechanism for enforcing access controls.
+* At the code level, make it mandatory for developers to declare the access that is allowed for each resource, and deny access by default.
+* Thoroughly audit and test access controls to ensure they are working as designed.
+````
