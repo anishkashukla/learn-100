@@ -1,5 +1,5 @@
 ### How to check for amazon s3 bucket misconfiguration
-`
+`````
 First of all, you need to install aws cli -
  * Pip install awscli
  * Set access key 
@@ -18,7 +18,7 @@ Command to move the file into the bucket.
 aws s3 mv test.txt s3://<bucket name>
 Command to delete the file into the bucket
 aws s3 rm test.txt s3://<bucket name>/test.txt (if that is present)
-`
+`````
 ### References :
 
  * [Hackerone Report](https://hackerone.com/reports/700051)
